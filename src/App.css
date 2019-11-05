@@ -1,22 +1,15 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'ENV';
+  src: url('fonts/ENV.ttf'); /* IE9 Compat Modes */
 }
 
-.App-logo {
-  height: 40vmin;
+body{
+  background-color: #F5F5F5;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+header h1{
+  font-family: ENV;
+  font-weight: 100;
+  font-size: 3vw;
+  margin: 0;
 }
