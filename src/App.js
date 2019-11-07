@@ -6,6 +6,7 @@ import axios from "axios";
 import ReactTyped from 'react-typed';
 var _ = require('lodash');
 var config = require('./config.js');
+const mock_data = require("./mock_data.js")
 
 class App extends Component {
   constructor() {
@@ -17,15 +18,20 @@ class App extends Component {
   }
 
   componentDidMount(){
-      axios.get(config.dbApi)
-      .then((response) => {
-        this.setState({
-          rawData: _.reverse(response.data)
-          .filter(ele => ele.masterData.twitterData.twitter_text !== null),
-        })
-      })
-      .catch((err) => {
-        console.log(err);
+      // axios.get(config.dbApi)
+      // .then((response) => {
+      //   this.setState({
+      //     rawData: _.reverse(mock_data)
+      //     // rawData: _.reverse(response.data)
+      //     // .filter(ele => ele.masterData.twitterData.twitter_text !== null),
+      //   })
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // })
+
+      this.setState({
+        rawData: _.reverse(mock_data)
       })
 
       axios.get(config.preFix + config.sheetID + config.postFix)
@@ -59,7 +65,8 @@ class App extends Component {
       let getRandomTweetsStrings = () => {
           return this.randomlySelectElements(10, this.state.rawData)
           .map((ele, index) => {
-            return ele.masterData.randomString
+            return ele.randomString
+            // return ele.masterData.randomString
           })
       }
       return (
@@ -130,6 +137,10 @@ class App extends Component {
   }
 
   renderSources = () => {
+
+    if(!this.state.cmsData){
+      return null;
+    }
 
     let cmsData = this.state.cmsData;
     let cellSources = cmsData.map((ele, index) => {

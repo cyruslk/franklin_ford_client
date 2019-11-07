@@ -80,7 +80,7 @@ body{
 
 
 .typed_container{
-  width: 80vw;
+  width: 75vw;
   margin-top: 10vw;
   margin-bottom: 7vw;
   height: 18vh;
@@ -88,13 +88,13 @@ body{
 }
 
 .metadata_typed_tweet_section{
-  width: 80vw;
+  width: 70vw;
   display: flex;
 }
 
 
 .sources_cell_container{
-  width: 80vw;
+  width: 70vw;
   display: flex;
   align-items: baseline;
   margin-bottom: 3vw;
@@ -154,7 +154,7 @@ body{
 }
 
 .info_text_container{
-  width: 80vw;
+  width: 70vw;
   margin-top: 3vw;
   margin-bottom: 3vw;
 }
