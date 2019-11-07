@@ -12,3 +12,5 @@ Note: I will clean the code soon. Stay tuned.
 The client-side code is accessible at this repo: https://github.com/cyruslk/franklin_ford_client
 Note: I now need to clean the db - and decide with Juliette what to use/what to discard. 
 
+# 2019.11.06
+
