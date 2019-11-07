@@ -3,7 +3,7 @@ import './App.css';
 import D3Component from "./D3Component.js"
 import 'react-typed/dist/animatedCursor.css';
 import axios from "axios";
-import ReactTyped from 'react-typed';
+import Typist from 'react-typist';
 var _ = require('lodash');
 var config = require('./config.js');
 const mock_data = require("./mock_data.js")
@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       rawData: null,
       cmsData: null,
+      typistIndex: 0
     }
   }
 
@@ -45,6 +46,19 @@ class App extends Component {
       })
   }
 
+  next = () => {
+    // alert("line typed")
+    this.setState({
+      typistIndex: this.state.typistIndex+1
+    }, () => {
+      if(this.state.typistIndex === this.state.rawData.length-1){
+        this.setState({
+          typistIndex: 0
+        })
+      }
+    })
+  }
+
 
   preStringTyped = () => {
     // alert("typed")
@@ -66,45 +80,54 @@ class App extends Component {
           return this.randomlySelectElements(10, this.state.rawData)
           .map((ele, index) => {
             return ele.randomString
+            // for the real data when the db will be cleaned:
             // return ele.masterData.randomString
           })
       }
+
       return (
-        <ReactTyped
-          loop
-          typeSpeed={50}
-          backSpeed={20}
-          strings={
-              getRandomTweetsStrings()
-          }
-          smartBackspace
-          backDelay={1}
-          fadeOutDelay={100}
-          loopCount={0}
-          showCursor
-          className="typed_span"
-          cursorChar="|"
-          onBegin={this.preStringTyped()}
-        />
+        <Typist
+          key={this.state.typistIndex}
+          avgTypingDelay={100}
+          onLineTyped={this.next}>
+          {this.state.rawData.map(word => ([
+            <span className="typed_span">{word.randomString}</span>,
+            <Typist.Backspace count={word.randomString.length} delay={1000} />,
+          ]))}
+        </Typist>
       )
     }
   }
 
   displayMetadataFromTweets = () => {
+
+    if(!this.state.cmsData){
+      return null;
+    }
+
+    let returnTweetMetadata = () => {
+      return (
+        <div>
+          <span>Tweet_created_at:  {this.state.rawData[this.state.typistIndex].twitterData.Tweet_created_at}</span>
+          <span>Tweet_id_string: {this.state.rawData[this.state.typistIndex].twitterData.Tweet_id_string}</span>
+        </div>
+      )
+    }
+
+    let returnCMSMetadata = () => {
+      console.log(this.state.cmsData[this.state.typistIndex]);
+      return (
+        <div>
+          <span>source_authorname: {this.state.cmsData[this.state.typistIndex].gsx$authorname.$t}</span>
+          <span>source_pdf: {this.state.cmsData[this.state.typistIndex].gsx$filenamepdf.$t}</span>
+        </div>
+      )
+    }
+
     return (
       <div>
-        <div>
-          <span>Tweet_created_at: "Wed Jul 03 02:16:11 +0000 2019"</span>
-          <span>Tweet_id_string: "1146241193057169409"</span>
-        </div>
-        <div>
-          <span>
-          {'{  "source_authorname:", "William F. Ford" }'}
-          </span>
-          <span>
-          {'{  "source_filenamepdf:", "1884_Ford__Bradstreet.pdf" }'}
-          </span>
-        </div>
+          {returnTweetMetadata()}
+          {returnCMSMetadata()}
       </div>
     )
   }
@@ -199,6 +222,16 @@ class App extends Component {
     )
   }
 
+  renderD3VisualisationsMenu = () => {
+    return (
+      <div className="visualisation_menu">
+        <div><span>CONTROL 1</span></div>
+        <div><span>CONTROL 2</span></div>
+        <div><span>CONTROL 3</span></div>
+      </div>
+    )
+  }
+
   render(){
       if(!this.state.rawData){
         return (
@@ -221,7 +254,10 @@ class App extends Component {
               {this.displayMetadataFromTweets()}
             </section>
               {this.renderInfoText()}
-              {this.renderD3Visualisations()}
+              <div>
+                {this.renderD3VisualisationsMenu()}
+                {this.renderD3Visualisations()}
+              </div>
               {this.renderSources()}
               {this.renderChatBox()}
           </div>

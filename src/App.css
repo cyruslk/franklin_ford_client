@@ -34,6 +34,11 @@ body{
   font-size: 2.6vw;
 }
 
+.Cursor--blinking{
+  font-size: 2.6vw;
+  color: black;
+}
+
 .sticky_container{
     width: fit-content;
     border: 1px solid;
@@ -80,7 +85,7 @@ body{
 
 
 .typed_container{
-  width: 75vw;
+  width: 70vw;
   margin-top: 10vw;
   margin-bottom: 7vw;
   height: 18vh;
@@ -216,4 +221,23 @@ body{
 
 .svg_animation{
   border: 1px solid black;
+}
+
+.visualisation_menu{
+  display: flex;
+  margin-bottom: 3vw;
+  width: 80vw;
+  margin-top: 4vw;
+}
+
+.visualisation_menu span{
+  font-family: monospace;
+  text-transform: uppercase;
+  font-size: 1.2vw;
+  border: 1px solid;
+  margin-right: 2vw;
+  padding: 1vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  border-radius: 20px;
 }

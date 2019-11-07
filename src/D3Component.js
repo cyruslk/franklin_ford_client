@@ -23,8 +23,8 @@ class D3Component extends Component {
   render() {
 
     return (
-      <svg className="svg_animation" width={width} height={height}>
-      </svg>
+        <svg className="svg_animation" width={width} height={height}>
+        </svg>
     );
   }
 }
