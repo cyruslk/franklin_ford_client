@@ -23,8 +23,7 @@ class App extends Component {
       // .then((response) => {
       //   this.setState({
       //     rawData: _.reverse(mock_data)
-      //     // rawData: _.reverse(response.data)
-      //     // .filter(ele => ele.masterData.twitterData.twitter_text !== null),
+      //     // rawData: _.reverse(response.data).filter(ele => ele.masterData.twitterData.twitter_text !== null)
       //   })
       // })
       // .catch((err) => {
@@ -47,7 +46,6 @@ class App extends Component {
   }
 
   next = () => {
-    // alert("line typed")
     this.setState({
       typistIndex: this.state.typistIndex+1
     }, () => {
@@ -101,7 +99,7 @@ class App extends Component {
 
   displayMetadataFromTweets = () => {
 
-    if(!this.state.cmsData){
+    if(!this.state.rawData){
       return null;
     }
 
@@ -115,11 +113,10 @@ class App extends Component {
     }
 
     let returnCMSMetadata = () => {
-      console.log(this.state.cmsData[this.state.typistIndex]);
       return (
         <div>
-          <span>source_authorname: {this.state.cmsData[this.state.typistIndex].gsx$authorname.$t}</span>
-          <span>source_pdf: {this.state.cmsData[this.state.typistIndex].gsx$filenamepdf.$t}</span>
+          <span>Author_name: {this.state.rawData[this.state.typistIndex].sourceData.Author_name}</span>
+          <span>PDF_name: {this.state.rawData[this.state.typistIndex].sourceData.PDF_name}</span>
         </div>
       )
     }
@@ -225,9 +222,9 @@ class App extends Component {
   renderD3VisualisationsMenu = () => {
     return (
       <div className="visualisation_menu">
-        <div><span>CONTROL 1</span></div>
-        <div><span>CONTROL 2</span></div>
-        <div><span>CONTROL 3</span></div>
+        <div><span>DATE</span></div>
+        <div><span>LOCATION</span></div>
+        <div><span>NEW</span></div>
       </div>
     )
   }
