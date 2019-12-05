@@ -8,6 +8,11 @@
   src: url('fonts/SaolText-Light.otf'); /* IE9 Compat Modes */
 }
 
+@font-face {
+  font-family: 'TimesN';
+  src: url('fonts/TimesN.otf'); /* IE9 Compat Modes */
+}
+
 body{
   background-color: #F5F5F5;
 }
@@ -29,7 +34,7 @@ body{
 }
 
 .typed_span{
-  font-family: ENV;
+  font-family: TimesN;
   line-height: 1.6;
   font-size: 2.6vw;
 }
@@ -103,12 +108,13 @@ body{
   display: flex;
   align-items: baseline;
   margin-bottom: 3vw;
+  margin-top: 3vw;
+  padding-bottom: 1vw;
   border-bottom: 1px solid;
-  padding-bottom: 3vw;
 }
 
 .sources_cell_container span{
-  font-family: ENV;
+  font-family: TimesN;
   font-size: 1.2vw;
 }
 
@@ -147,7 +153,7 @@ body{
 
 .metadata_typed_tweet_section div div span{
   display: block;
-  font-family: ENV;
+  font-family: TimesN;
   font-size: 1.15vw;
 }
 
@@ -170,7 +176,7 @@ body{
 
 .info_text_container p:first-child{
   margin-bottom: 3vw;
-  font-family: ENV;
+  font-family: TimesN;
   line-height: 1.6;
   font-size: 2.6vw;
 }
@@ -180,7 +186,7 @@ body{
 }
 
 .info_text_container p:last-child{
-  font-family: ENV;
+  font-family: TimesN;
   line-height: 1.9;
   font-size: 1.5vw;
   margin-bottom: 0;
@@ -188,7 +194,7 @@ body{
 
 .source_container p{
   margin-bottom: 3vw;
-  font-family: ENV;
+  font-family: TimesN;
   line-height: 1.6;
   font-size: 2.6vw;
   margin-bottom: 3vw;
@@ -240,4 +246,10 @@ body{
   padding-left: 1vw;
   padding-right: 1vw;
   border-radius: 20px;
+}
+
+
+.sources_body_container{
+  margin-bottom: 3vw;
+  border-bottom: 1px solid;
 }

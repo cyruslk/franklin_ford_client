@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { HashLink as Link } from 'react-router-hash-link';
 import './App.css';
 import D3Component from "./D3Component.js"
+import SourcesConponent from "./SourcesConponent.js";
 import 'react-typed/dist/animatedCursor.css';
 import axios from "axios";
 import Typist from 'react-typist';
@@ -12,37 +14,27 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      rawData: null,
-      cmsData: null,
-      typistIndex: 0
+      rawData: _.reverse(mock_data),
+      spreadSheetData: null,
+      typistIndex: 0,
+      rawDataReal: null
     }
   }
 
   componentDidMount(){
-      // axios.get(config.dbApi)
-      // .then((response) => {
-      //   this.setState({
-      //     rawData: _.reverse(mock_data)
-      //     // rawData: _.reverse(response.data).filter(ele => ele.masterData.twitterData.twitter_text !== null)
-      //   })
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // })
 
+    axios.get(config.preFix + config.sheetID + config.postFix)
+    .then((response) => {
       this.setState({
-        rawData: _.reverse(mock_data)
+        spreadSheetData: response.data.feed.entry
       })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
-      axios.get(config.preFix + config.sheetID + config.postFix)
-      .then((response) => {
-        this.setState({
-          cmsData: response.data.feed.entry
-        })
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    // need to get the data from the cms later;
+    
   }
 
   next = () => {
@@ -158,33 +150,17 @@ class App extends Component {
 
   renderSources = () => {
 
-    if(!this.state.cmsData){
+    if(!this.state.spreadSheetData){
       return null;
     }
 
-    let cmsData = this.state.cmsData;
-    let cellSources = cmsData.map((ele, index) => {
+    let spreadSheetData = this.state.spreadSheetData;
+    let cellSources = spreadSheetData.map((ele, index) => {
       return (
-        <div key={index} className="sources_cell_container">
-          <div className="sources_cell_container_first">
-            <div className="year">
-              <span>{ele.gsx$dateyear.$t}</span>
-            </div>
-          </div>
-          <div className="sources_cell_container_second">
-            <div className="title">
-              <span>{ele.gsx$title.$t}</span>
-            </div>
-            <div className="published_in">
-              <span>{ele.gsx$publishedin.$t}</span>
-            </div>
-          </div>
-          <div className="sources_cell_container_third">
-            <div className="lieu">
-              <span>{ele.gsx$lieu.$t}</span>
-            </div>
-          </div>
-        </div>
+        <SourcesConponent
+          ele={ele}
+          index={index}
+        />
       )
     })
 
@@ -251,10 +227,6 @@ class App extends Component {
               {this.displayMetadataFromTweets()}
             </section>
               {this.renderInfoText()}
-              <div>
-                {this.renderD3VisualisationsMenu()}
-                {this.renderD3Visualisations()}
-              </div>
               {this.renderSources()}
               {this.renderChatBox()}
           </div>
