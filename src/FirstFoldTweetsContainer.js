@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 import App from "./App.css";
 
 
@@ -29,10 +30,26 @@ class FirstFoldTweetsContainer extends React.Component {
     }else{
       return (
         <div>
-          {data.randomString}
+          {this.typingEffect(data.randomString)}
         </div>
       )
     }
+  }
+
+  typingEffect = (string) => {
+    let stringMaped = string
+    .split("")
+    .map((ele, index) => {
+      let style = {
+        animation: `${index}s typing ease-out`
+      }
+      return (
+        <span key={index} style={style}>
+          {ele}
+        </span>
+      )
+    })
+    return stringMaped;
   }
 
 
