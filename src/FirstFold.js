@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import FirstFoldTweetsContainer from "./FirstFoldTweetsContainer.js"
 import App from "./App.css";
 
 
@@ -8,13 +9,12 @@ class FirstFold extends React.Component {
   constructor(props) {
    super(props);
    this.state = {
-     tweets: null,
      selectedTweets: null,
      displayedTweets: null,
      displayedMetadata: null,
      tweetStringTypedArray: [],
      tweetStringTypedIndex: 0,
-     tweetsArray: [],
+     tweetsArray: null,
      tweetsIndex: 0
    };
  }
@@ -23,66 +23,53 @@ class FirstFold extends React.Component {
    if(!this.props.mockDataTweets){
      return "loading"
    }else{
+     let formattedData = this.props.mockDataTweets
+     .map((ele, index) => {
+       if(index === 0){
+         return (
+           {
+             data: ele,
+             visible: true,
+             animation: true
+           }
+         )
+       }else{
+         return (
+           {
+             data: ele,
+             visible: false,
+             animation: false
+           }
+         )
+       }
+     })
      this.setState({
-       tweets: this.props.mockDataTweets
-     }, () => {
-       return this.initiateTypingEffect(
-         this.state.tweets[this.state.tweetsIndex].randomString
-       )
+       tweetsArray: formattedData
      })
    }
  }
 
-initiateTypingEffect = (string) => {
-  let splitedString = string.split("");
-  let splitedStringLength = splitedString.length;
 
-  setInterval(() => {
-      return this.pushToTheStateContainer(splitedString, splitedStringLength)
-    }, 200);
-  }
-
-
-pushToTheStateContainer = (array, arrayLength) => {
-  let currentLetter = array[this.state.tweetStringTypedIndex];
-  this.setState({
-    tweetStringTypedArray: [...this.state.tweetStringTypedArray, currentLetter]
-  }, () => {
-    if(this.state.tweetStringTypedIndex === arrayLength){
-      return;
-    }else{
-      this.setState({
-        tweetStringTypedIndex: this.state.tweetStringTypedIndex+1
-      })
-    }
-  })
-}
-
-
-renderStringTyped = () => {
-  if(this.state.tweetStringTypedArray.length === 0){
-    return null
-  }
-  let stateMaped = this.state.tweetStringTypedArray
-  .map((ele, index) => {
-    return (
-      <span key={index}>
-        {ele}
-      </span>
-    )
-  })
-  return (
-    <div>
-      {stateMaped}
-    </div>
-  )
-}
+renderFirstFoldTweetsList = () => {
+   if(!this.state.tweetsArray){
+     return null
+   }
+   return this.state.tweetsArray
+   .map((ele, index) => {
+     return (
+       <FirstFoldTweetsContainer
+        data={ele}
+        key={index}
+      />
+     )
+   })
+ }
 
   render(){
     return (
       <main className="first_fold_container">
           <div className="typed_tweets">
-            {this.renderStringTyped()}
+            {this.renderFirstFoldTweetsList()}
           </div>
           <div className="displayed_metadata">
         </div>
