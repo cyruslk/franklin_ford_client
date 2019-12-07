@@ -10,10 +10,6 @@ class SourcesConponent extends Component {
     }
   }
 
-  componentDidMount(){
-
-  }
-
   toggledBody = () => {
     this.setState({
       toggled: !this.state.toggled
@@ -60,7 +56,7 @@ class SourcesConponent extends Component {
     }
     return (
       <div>
-        dvfdvfdvfd
+        content related to the text here.
       </div>
     )
   }

@@ -1,4 +1,4 @@
-const mock_data = [
+const mock_data_tweets = [
   {
     randomString: "The salient feature of the scheme consisted in the purchase by the State of a portion of its out-IIfj;.",
     twitterData: {
@@ -45,4 +45,4 @@ const mock_data = [
   },
 ]
 
-module.exports = mock_data;
+module.exports = mock_data_tweets;

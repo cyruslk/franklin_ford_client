@@ -4,8 +4,8 @@
 }
 
 @font-face {
-  font-family: 'SaolText-Light';
-  src: url('fonts/SaolText-Light.otf'); /* IE9 Compat Modes */
+  font-family: 'TimesN';
+  src: url('fonts/TimesN.otf'); /* IE9 Compat Modes */
 }
 
 @font-face {
@@ -13,25 +13,105 @@
   src: url('fonts/TimesN.otf'); /* IE9 Compat Modes */
 }
 
+@font-face {
+  font-family: 'Favorit-LightMono';
+  src: url('fonts/Favorit-LightMono.otf'); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: 'Favorit-Light';
+  src: url('fonts/Favorit_Light.otf'); /* IE9 Compat Modes */
+}
+
+
+
+@font-face {
+  font-family: 'Plantin';
+  src: url('fonts/Plantin.otf'); /* IE9 Compat Modes */
+}
+
+
 body{
   background-color: #F5F5F5;
     -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
 }
 
-section{
-  height: 100vh;
-  font-size: 20vw;
+a{
+  color: black;
+  text-decoration: none;
 }
 
+
+img{
+  width: 50vw;
+}
 
 .main_container{
-  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
+
+
+.first_fold_container{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+}
+
+
+.typed_tweets{
+  width: 65vw;
+  background-color: grey;
+  height: 100vh;
+  overflow: scroll;
+}
+
+
+.typed_tweets div{
+  margin-left: 2vw;
+  margin-top: 2vw;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
+  border-bottom: 1px solid;
+  padding-bottom: 2vw;
+}
+
+.typed_tweets div span{
+  font-family: Plantin;
+  font-size: 2vw;
+}
+
+
+
+.displayed_metadata{
+  height: 100vh;
+  width: 35vw;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  margin-top: 2vw;
+  overflow: scroll;
+
+}
+
+.metadata_first_fold{
+  border-bottom: 1px solid black;
+  margin-bottom: 1vw;
+  padding-bottom: 1vw;
+}
+
+
+.metadata_first_fold span{
+  display: block;
+  font-family: Favorit-LightMono;
+  font-size: 1.1vw;
+}
+
 
 .loading_screen{
   display: flex;
@@ -41,15 +121,14 @@ section{
   width: 100vw;
 }
 
-.typed_span{
-  font-family: TimesN;
-  line-height: 1.6;
-  font-size: 2.6vw;
-}
 
+
+
+.typed_span,
 .Cursor--blinking{
-  font-size: 2.6vw;
-  color: black;
+  font-family: Plantin;
+  line-height: 1.6;
+  font-size: 3.6vw;
 }
 
 .sticky_container{
@@ -64,6 +143,7 @@ section{
     bottom: 0;
     left: 0;
     background-color: #F5F5F5;
+    z-index: 10;
   }
 
 
@@ -87,32 +167,23 @@ section{
 }
 
 .sticky_container ul li{
-  font-family: monospace;
+  font-family: Favorit-LightMono;
   text-transform: uppercase;
   font-size: 1.2vw;
 }
 
-.sticky_container ul li:first-child span{
-  border-bottom: 1px solid black;
-}
-
 
 .typed_container{
-  width: 70vw;
+  width: 85vw;
   margin-top: 10vw;
   margin-bottom: 7vw;
   height: 18vh;
   border-bottom: 1px solid black;
 }
 
-.metadata_typed_tweet_section{
-  width: 70vw;
-  display: flex;
-}
-
 
 .sources_cell_container{
-  width: 70vw;
+  width: 85vw;
   display: flex;
   align-items: baseline;
   margin-bottom: 3vw;
@@ -122,7 +193,7 @@ section{
 }
 
 .sources_cell_container span{
-  font-family: TimesN;
+  font-family: Favorit-LightMono;
   font-size: 1.2vw;
 }
 
@@ -148,22 +219,6 @@ section{
   text-align: end;
 }
 
-.metadata_typed_tweet_section div{
-  display: flex;
-  width: 100%;
-  align-items: baseline;
-}
-
-.metadata_typed_tweet_section div div{
-  width: 50%;
-  display: block;
-}
-
-.metadata_typed_tweet_section div div span{
-  display: block;
-  font-family: TimesN;
-  font-size: 1.15vw;
-}
 
 .firstMain div span{
   color: black;
@@ -172,10 +227,15 @@ section{
   font-size: 4vw;
 }
 
-.info_text_container{
-  width: 70vw;
+.info_text_container,
+.who_container,
+.about_container{
+  width: 85vw;
   margin-top: 3vw;
   margin-bottom: 3vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .info_text_container p{
@@ -184,25 +244,25 @@ section{
 
 .info_text_container p:first-child{
   margin-bottom: 3vw;
-  font-family: TimesN;
-  line-height: 1.6;
-  font-size: 2.6vw;
+  font-family: arial black;
+  font-size: 3vw;
+  text-transform: uppercase;
+  width: 65vw;
+  text-align: center;
 }
 
-.info_text_container p:first-child span{
-  border-bottom: 1px solid black;
-}
 
 .info_text_container p:last-child{
   font-family: TimesN;
-  line-height: 1.9;
-  font-size: 1.5vw;
+  line-height: 1.4;
+  font-size: 1.4vw;
   margin-bottom: 0;
+  width: 54vw;
 }
 
 .source_container p{
   margin-bottom: 3vw;
-  font-family: TimesN;
+  font-family: Plantin;
   line-height: 1.6;
   font-size: 2.6vw;
   margin-bottom: 3vw;
@@ -215,7 +275,7 @@ section{
 .background_images_container img:first-child{
   width: 5vw;
   left: 2vw;
-  position: absolute;
+  position: fixed;
   top: 12vw;
 }
 
@@ -260,4 +320,37 @@ section{
 .sources_body_container{
   margin-bottom: 3vw;
   border-bottom: 1px solid;
+}
+
+
+.about_container h1{
+  margin-bottom: 3vw;
+  font-family: Plantin;
+  line-height: 1.6;
+  font-size: 2.6vw;
+  font-weight: 100;
+}
+
+.about_container p{
+  font-family: Plantin;
+  line-height: 1.4;
+  font-size: 1.5vw;
+  margin-bottom: 0;
+}
+
+.who_container{
+  display: flex;
+  align-items: baseline;
+}
+
+.who_container div{
+  width: 50%;
+}
+
+.who_container div h1{
+  margin-bottom: 3vw;
+  font-family: Plantin;
+  line-height: 1.6;
+  font-size: 2.6vw;
+  font-weight: 100;
 }
