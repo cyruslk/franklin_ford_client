@@ -9,15 +9,12 @@ class FirstFold extends React.Component {
   constructor(props) {
    super(props);
    this.state = {
-     selectedTweets: null,
-     displayedTweets: null,
-     displayedMetadata: null,
-     tweetStringTypedArray: [],
-     tweetStringTypedIndex: 0,
      tweetsArray: null,
-     tweetsIndex: 0
+     counter: 0
    };
  }
+
+
 
  componentDidMount(){
    if(!this.props.mockDataTweets){
@@ -26,21 +23,17 @@ class FirstFold extends React.Component {
      let formattedData = this.props.mockDataTweets
      .map((ele, index) => {
        if(index === 0){
-         return (
-           {
-             data: ele,
-             visible: true,
-             animation: true
-           }
-         )
+         return {
+           data: ele.randomString,
+           visible: true,
+           animation: true
+         }
        }else{
-         return (
-           {
-             data: ele,
-             visible: false,
-             animation: false
-           }
-         )
+         return {
+           data: ele.randomString,
+           visible: false,
+           animation: false
+         }
        }
      })
      this.setState({
@@ -58,12 +51,39 @@ renderFirstFoldTweetsList = () => {
    .map((ele, index) => {
      return (
        <FirstFoldTweetsContainer
+       changeTweetsArray={this.changeTweetsArray}
         data={ele}
         key={index}
       />
      )
    })
  }
+
+ changeTweetsArray = () => {
+   let formattedData = this.props.mockDataTweets
+   .map((ele, index) => {
+     if(index === 1){
+       return {
+         data: ele.randomString,
+         visible: true,
+         animation: true
+       }
+     }else{
+       return {
+         data: ele.randomString,
+         visible: false,
+         animation: false
+       }
+     }
+   })
+
+   this.setState({
+     counter: this.state.counter+1,
+     tweetsArray: formattedData
+   })
+ }
+
+
 
   render(){
     return (
