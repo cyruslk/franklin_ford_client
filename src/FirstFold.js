@@ -14,28 +14,21 @@ class FirstFold extends React.Component {
    };
  }
 
-
-
  componentDidMount(){
+   // if there's no mockDataTweets props, return a loading sign
    if(!this.props.mockDataTweets){
      return "loading"
    }else{
+     // otherwise, get the mockDataTweets and map through them.
      let formattedData = this.props.mockDataTweets
      .map((ele, index) => {
-       if(index === 0){
-         return {
-           data: ele.randomString,
-           visible: true,
-           animation: true
-         }
-       }else{
-         return {
-           data: ele.randomString,
-           visible: false,
-           animation: false
-         }
+       return {
+         data: ele.randomString,
+         visible: true,
+         animation: true
        }
-     })
+     }).slice(0, this.state.counter+1);
+
      this.setState({
        tweetsArray: formattedData
      })
@@ -51,35 +44,39 @@ renderFirstFoldTweetsList = () => {
    .map((ele, index) => {
      return (
        <FirstFoldTweetsContainer
-       changeTweetsArray={this.changeTweetsArray}
-        data={ele}
-        key={index}
+          changeTweetsArray={this.changeTweetsArray}
+          data={ele}
+          key={index}
       />
      )
    })
  }
 
  changeTweetsArray = () => {
-   let formattedData = this.props.mockDataTweets
-   .map((ele, index) => {
-     if(index === 1){
-       return {
-         data: ele.randomString,
+   this.setState({
+     counter: this.state.counter+1
+   }, () => {
+
+
+     let formattedData = [
+       {
+         data: "fvdfvfdv",
+         visible: true,
+         animation: false
+       },
+       {
+         data: "hello world",
          visible: true,
          animation: true
        }
-     }else{
-       return {
-         data: ele.randomString,
-         visible: false,
-         animation: false
-       }
-     }
-   })
+     ]
 
-   this.setState({
-     counter: this.state.counter+1,
-     tweetsArray: formattedData
+     this.setState({
+       tweetsArray: formattedData
+     }, () => {
+       return this.renderFirstFoldTweetsList()
+     })
+
    })
  }
 

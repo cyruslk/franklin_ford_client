@@ -23,15 +23,17 @@ class FirstFoldTweetsContainer extends React.Component {
    }
  }
 
+ componentDidUpdate(prevProps) {
+  if (prevProps.data !== this.props.data) {
+    return this.renderContent();
+  }
+}
+
  renderContent = () => {
-   if(!this.props.data){
-     return "loading"
-   }else{
      let data = this.props.data.data;
      let visible = this.props.data.visible;
      let animation = this.props.data.animation;
      return this.handleContentState(data, visible, animation);
-   }
  }
 
   handleContentState = (data, visible, animation) => {
@@ -75,19 +77,23 @@ class FirstFoldTweetsContainer extends React.Component {
   makeTypingAnimation = (data) => {
     let splitedString= data.split("");
     let splitedStringLength = splitedString.length;
-    setInterval(() => {
-        return this.pushToTheState(splitedString, splitedStringLength)
-      }, 200);
+    let intervalId = setInterval(this.pushToTheState, 200);
+    this.setState({
+      intervalId: intervalId
+    })
   };
 
-  pushToTheState = (array, arrayLength) => {
+  pushToTheState = () => {
+
+    let array = this.props.data.data.split("")
+    let arrayLength = array.length
+
     let currentLetter = array[this.state.tweetStringTypedIndex];
     this.setState({
       tweetStringTypedArray: [...this.state.tweetStringTypedArray, currentLetter]
     }, () => {
       if(this.state.tweetStringTypedIndex === arrayLength){
-        return clearInterval(this.makeTypingAnimation(this.props.data.data),
-        () => { console.log("cleared");});
+       return this.clearAndSendProps()
       }else{
         this.setState({
           tweetStringTypedIndex: this.state.tweetStringTypedIndex+1
@@ -96,6 +102,11 @@ class FirstFoldTweetsContainer extends React.Component {
         })
       }
     })
+  }
+
+  clearAndSendProps = () => {
+    clearInterval(this.state.intervalId)
+    return this.props.changeTweetsArray()
   }
 
 
@@ -110,8 +121,6 @@ class FirstFoldTweetsContainer extends React.Component {
       formattedContent: formattedContent
     })
   }
-
-
 
   render(){
     if(!this.state.formattedContent){
