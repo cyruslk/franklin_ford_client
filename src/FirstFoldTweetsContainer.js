@@ -30,43 +30,38 @@ class FirstFoldTweetsContainer extends React.Component {
 }
 
  renderContent = () => {
-     let data = this.props.data.data;
+     let tweet = this.props.data.tweet;
      let visible = this.props.data.visible;
      let animation = this.props.data.animation;
-     return this.handleContentState(data, visible, animation);
+     return this.handleContentState(tweet, visible, animation);
  }
 
-  handleContentState = (data, visible, animation) => {
+  handleContentState = (tweet, visible, animation) => {
     if(!visible){
-      return this.hideDiv(data)
+      return this.hideDiv(tweet)
     }
     else if(visible && !animation){
-      return this.makeDivVisible(data)
+      return this.makeDivVisible(tweet)
     }else{
-      return this.makeTypingAnimation(data)
+      return this.makeTypingAnimation(tweet)
     }
   }
 
-  hideDiv = (data) => {
-    let formattedContent = () => {
-      return (
-        <span style={{display: "none"}}>
-          {data}
-        </span>
-      )
-    }
+  hideDiv = (tweet) => {
     this.setState({
-      formattedContent: formattedContent()
+      formattedContent: ""
     })
   }
 
   // make div visible without animation;
-  makeDivVisible = (data) => {
+  makeDivVisible = (tweet) => {
     let formattedContent = () => {
       return (
-        <span>
-          {data}
-        </span>
+        <div>
+          <span>
+            {tweet}
+          </span>
+        </div>
       )
     }
     this.setState({
@@ -74,17 +69,17 @@ class FirstFoldTweetsContainer extends React.Component {
     })
   }
 
-  makeTypingAnimation = (data) => {
-    let splitedString= data.split("");
+  makeTypingAnimation = (tweet) => {
+    let splitedString= tweet.split("");
     let splitedStringLength = splitedString.length;
-    let intervalId = setInterval(this.pushToTheState, 100);
+    let intervalId = setInterval(this.pushToTheState, 50);
     this.setState({
       intervalId: intervalId
     })
   };
 
   pushToTheState = () => {
-    let array = this.props.data.data.split("")
+    let array = this.props.data.tweet.split("")
     let arrayLength = array.length
     let currentLetter = array[this.state.tweetStringTypedIndex];
 
@@ -116,9 +111,17 @@ class FirstFoldTweetsContainer extends React.Component {
         <span key={index}>{ele}</span>
       )
     })
-
+    let formattedContent = () => {
+      return (
+        <div>
+            <span>
+              {formattedContentSpans}
+            </span>
+        </div>
+      )
+    }
     this.setState({
-      formattedContent: formattedContentSpans
+      formattedContent: formattedContent()
     })
   }
 
@@ -126,11 +129,7 @@ class FirstFoldTweetsContainer extends React.Component {
     if(!this.state.formattedContent){
       return null
     }else{
-      return (
-        <div>
-          {this.state.formattedContent}
-        </div>
-      )
+      return this.state.formattedContent
     }
   }
 }
