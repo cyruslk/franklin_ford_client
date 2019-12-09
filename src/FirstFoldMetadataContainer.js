@@ -28,10 +28,10 @@ class FirstFoldMetadataContainer extends React.Component {
 
  renderContent = () => {
 
-   console.log(this.props, "here");
-
      let sourceMetadata = this.props.data.sourceMetadata;
      let twitterMetadata = this.props.data.twitterMetadata;
+
+     console.log(sourceMetadata, twitterMetadata);
 
      let data = this.props.data.tweet;
 
@@ -67,7 +67,6 @@ class FirstFoldMetadataContainer extends React.Component {
       formattedContent: formattedContent()
     })
   }
-
 
   render(){
     if(!this.state.formattedContent){
