@@ -15,19 +15,28 @@ class FirstFold extends React.Component {
  }
 
  componentDidMount(){
-   // if there's no mockDataTweets props, return a loading sign
    if(!this.props.mockDataTweets){
      return "loading"
    }else{
-     // otherwise, get the mockDataTweets and map through them.
      let formattedData = this.props.mockDataTweets
      .map((ele, index) => {
-       return {
-         data: ele.randomString,
-         visible: true,
-         animation: true
-       }
-     }).slice(0, this.state.counter+1);
+        if(index === this.state.counter){
+          return {
+            index: index,
+            data: ele.randomString,
+            visible: true,
+            animation: true
+          }
+        }else{
+          return {
+            index: index,
+            data: ele.randomString,
+            visible: false,
+            animation: false
+          }
+        }
+     })
+
 
      this.setState({
        tweetsArray: formattedData
@@ -53,30 +62,46 @@ renderFirstFoldTweetsList = () => {
  }
 
  changeTweetsArray = () => {
+   setTimeout(this.updateStateCounter, 3000);
+ }
+
+ updateStateCounter = () => {
    this.setState({
      counter: this.state.counter+1
    }, () => {
 
+     let formattedDataUpdated = this.props.mockDataTweets
+     .map((ele, index) => {
+        if(index < this.state.counter){
+          return {
+            index: index,
+            data: ele.randomString,
+            visible: true,
+            animation: false
+          }
+        }else if(index === this.state.counter){
+          return {
+            index: index,
+            data: ele.randomString,
+            visible: true,
+            animation: true
+          }
+        }else{
+          return {
+            index: index,
+            data: ele.randomString,
+            visible: false,
+            animation: false
+          }
+        }
+     })
 
-     let formattedData = [
-       {
-         data: "fvdfvfdv",
-         visible: true,
-         animation: false
-       },
-       {
-         data: "hello world",
-         visible: true,
-         animation: true
-       }
-     ]
 
      this.setState({
-       tweetsArray: formattedData
+       tweetsArray: formattedDataUpdated
      }, () => {
        return this.renderFirstFoldTweetsList()
      })
-
    })
  }
 

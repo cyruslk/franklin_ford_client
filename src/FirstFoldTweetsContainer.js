@@ -50,9 +50,9 @@ class FirstFoldTweetsContainer extends React.Component {
   hideDiv = (data) => {
     let formattedContent = () => {
       return (
-        <div style={{display: "none"}}>
+        <span style={{display: "none"}}>
           {data}
-        </div>
+        </span>
       )
     }
     this.setState({
@@ -64,9 +64,9 @@ class FirstFoldTweetsContainer extends React.Component {
   makeDivVisible = (data) => {
     let formattedContent = () => {
       return (
-        <div>
+        <span>
           {data}
-        </div>
+        </span>
       )
     }
     this.setState({
@@ -77,18 +77,17 @@ class FirstFoldTweetsContainer extends React.Component {
   makeTypingAnimation = (data) => {
     let splitedString= data.split("");
     let splitedStringLength = splitedString.length;
-    let intervalId = setInterval(this.pushToTheState, 200);
+    let intervalId = setInterval(this.pushToTheState, 100);
     this.setState({
       intervalId: intervalId
     })
   };
 
   pushToTheState = () => {
-
     let array = this.props.data.data.split("")
     let arrayLength = array.length
-
     let currentLetter = array[this.state.tweetStringTypedIndex];
+
     this.setState({
       tweetStringTypedArray: [...this.state.tweetStringTypedArray, currentLetter]
     }, () => {
@@ -111,22 +110,27 @@ class FirstFoldTweetsContainer extends React.Component {
 
 
   formtattedTypedContent = () => {
-    let formattedContent = this.state.tweetStringTypedArray
+    let formattedContentSpans = this.state.tweetStringTypedArray
     .map((ele, index) => {
       return (
         <span key={index}>{ele}</span>
       )
     })
+
     this.setState({
-      formattedContent: formattedContent
+      formattedContent: formattedContentSpans
     })
   }
 
   render(){
     if(!this.state.formattedContent){
-      return "loading"
+      return null
     }else{
-      return this.state.formattedContent;
+      return (
+        <div>
+          {this.state.formattedContent}
+        </div>
+      )
     }
   }
 }
