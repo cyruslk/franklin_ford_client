@@ -19,9 +19,6 @@ class FirstFold extends React.Component {
    if(!this.props.mockDataTweets){
      return "loading"
    }else{
-
-     console.log(this.props.mockDataTweets);
-
      let formattedData = this.props.mockDataTweets
        .map((ele, index) => ({
           index,

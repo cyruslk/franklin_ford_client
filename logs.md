@@ -13,3 +13,19 @@ The client-side code is accessible at this repo: https://github.com/cyruslk/fran
 Note: I now need to clean the db - and decide with Juliette what to use/what to discard. 
 https://www.youtube.com/watch?v=azAreVfBS0o
 
+# 2019.12.11
+
+Note for future `NPM` package:
+
+```
+<TypewritterArray
+	speed={500ms}
+	delay={1000ms}
+	type={images}
+	data={imagesData}
+/>
+```
+
+# 2019.12.19
+
+Switching to the /client side now

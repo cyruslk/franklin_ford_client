@@ -1,30 +1,43 @@
 import React from 'react';
 import App from "./App.css";
+var parse = require('html-react-parser');
 
 
 class About extends React.Component {
 
-
   renderAboutContent = () => {
-    if(!this.props.mockDataCms){
+    if(!this.props.about){
       return null
     }
-    let data = this.props.mockDataCms[0].about;
-    let mapedData = data.map((ele, index) => {
+    let aboutMaped = this.props.about
+    .map((ele, index) => {
+      let parsedText = parse(ele.Body_text)
       return (
-        <div key={index}>
-          <h1>{ele.title}</h1>
-          <p>{ele.body}</p>
+        <div>
+          <div className="about_container_main">
+            <h1>{parse(ele.Headline)}</h1>
+            <p>{parsedText}</p>
+          </div>
         </div>
       )
     })
-    return mapedData;
+
+    return (
+      <div>
+        {aboutMaped}
+      </div>
+    )
   }
+
+
+
 
   render(){
     return (
-      <div className="about_container">
-        {this.renderAboutContent()}
+      <div className="main_container">
+        <div id="about" className="about_container">
+          {this.renderAboutContent()}
+        </div>
       </div>
     );
   }

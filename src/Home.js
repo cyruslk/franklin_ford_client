@@ -6,10 +6,14 @@ import { HashLink as Link } from 'react-router-hash-link';
 
 import App from "./App.css"
 import About from "./About.js";
-import FirstFold from "./FirstFold.js"
+import News from "./News.js";
+import FirstFold from "./FirstFold.js";
+import FirstImageFold from "./FirstImageFold.js";
+import SourcesComponent from "./SourcesComponent.js"
 import Sources from "./Sources.js";
 import Who from "./Who.js";
 
+var parse = require('html-react-parser');
 var config = require('./config.js');
 const mock_data_tweets = require("./mock_data_tweets.js");
 const mock_data_cms = require("./mock_data_cms.js");
@@ -19,17 +23,20 @@ class Home extends React.Component {
     super(props)
     this.state = {
       mockDataTweets: _.reverse(mock_data_tweets),
-      mockDataCms: mock_data_cms,
       spreadsheetData: null,
       typistIndex: 0,
-      abouts: null,
+      about: null,
       whos: null,
       news: null,
-      acknowledgments: null
+      acknowledgments: null,
+      windowScroll: 0,
+      scrolled: 0
     };
   }
 
   componentDidMount(){
+
+    window.addEventListener('scroll', this.listenToScroll)
 
     // call to the spreadsheetAPI
     let spreadsheetAPI = config.preFix + config.sheetID + config.postFix;
@@ -42,12 +49,6 @@ class Home extends React.Component {
       console.log(err);
     })
 
-    // call the spreadsheet API;
-    fetch(spreadsheetAPI)
-    .then((response) => {
-      console.log(response.json());
-    })
-
     //call the cms routes here
     fetch("https://franklin-ford-cms.herokuapp.com/abouts")
       .then((response) => {
@@ -55,7 +56,7 @@ class Home extends React.Component {
       })
       .then((data) => {
         this.setState({
-          abouts: data
+          about: data
         })
     })
 
@@ -70,13 +71,13 @@ class Home extends React.Component {
     })
 
 
-    fetch("https://franklin-ford-cms.herokuapp.com/acknowledgments")
+    fetch("https://franklin-ford-cms.herokuapp.com/mains")
       .then((response) => {
         return response.json()
       })
       .then((data) => {
         this.setState({
-          acknowledgments: data
+          intro: data
         })
     })
 
@@ -92,41 +93,140 @@ class Home extends React.Component {
   }
 
 
-displayMenuSticky = () => {
-return (
-  <div className="sticky_container">
-    <ul>
-      <li><Link smooth to={`${window.location.pathname}#about`}><span>About</span></Link></li>
-      <li><Link smooth to={`${window.location.pathname}#sources`}><span>Sources</span></Link></li>
-      <li><Link smooth to={`${window.location.pathname}#who`}><span>Who</span></Link></li>
-      <li><Link smooth to={`${window.location.pathname}#news`}><span>News</span></Link></li>
-      <li><Link smooth to={`${window.location.pathname}#acknowledgments`}><span>Acknowledgments</span></Link></li>
-    </ul>
-  </div>
-)
+  listenToScroll = () => {
+    const windowScroll = document.body.scrollTop || document.documentElement.scrollTop
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight
+    const scrolled = windowScroll / height;
+    this.setState({
+      windowScroll,
+      scrolled
+    })
+  }
+
+renderMenu = () => {
+  return (
+    <div className="sticky_container">
+        <ul>
+          <li><Link smooth to={`${window.location.pathname}#about`}><span>About</span></Link></li>
+          <li><Link smooth to={`${window.location.pathname}#sources`}><span>Sources</span></Link></li>
+          <li><Link smooth to={`${window.location.pathname}#news`}><span>News</span></Link></li>
+          <li><Link smooth to={`${window.location.pathname}#who`}><span>Who</span></Link></li>
+          <li><Link smooth to={`${window.location.pathname}#acknowledgments`}><span>Acknowledgments</span></Link></li>
+        </ul>
+    </div>
+  )
 }
 
 // change this from the CMS?
-renderInfoText = () => {
+renderIntroText = () => {
+  if(!this.state.intro){
+    return null;
+  }
+  let intro = this.state.intro;
+
+
   return (
     <div className="main_container">
       <div className="info_text_container">
         <p>
           <span>
-              In this case, the primacy is with the news organization per se.
+            {parse(intro[0].headline)}
           </span>
         </p>
-        <p>@franklinfordbot is a bot that tweets excerpts from the writings of Franklin Ford. An intriguing figure in the history of American journalism, Franklin Ford (1849-1918) is mostly known for his association with John Dewey, with whom he tried to launch Thought News, a "philosophical newspaper" that never saw the light of day. But beyond that footnote in Dewey's career and in journalism history, Ford's role and his contribution need to be revisited, not only because he was a fascinating media theorist and a compelling writer, but also because reading Ford is a jumping-off point for experimentations and theoretical developments that speak to contemporary media problems. In that regard, @franklinfordbot is an experiment, a remediation of Franklin Ford.</p>
+        <p>
+            {parse(intro[0].Body_text)}
+        </p>
       </div>
     </div>
   )
+};
+
+renderBackgroundImagesGroup1 = () => {
+  if(this.state.windowScroll > 3000
+    && this.state.windowScroll < 6000){
+    return (
+      <section className="group_1">
+        <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1573080265/ford/f_f_2.svg" />
+        <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1573080265/ford/f_f_3.svg" />
+        <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1573080265/ford/f_f_4.svg" />
+      </section>
+    )
+  }else{
+    return null
+  }
 }
+
+renderBackgroundImagesGroup2 = () => {
+  if(this.state.windowScroll > 4500
+    && this.state.windowScroll < 8000){
+      return (
+        <section className="group_2">
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578909815/ford/3-02.svg" />
+          <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578910716/ford/5-02-02.svg" />
+        </section>
+      )
+    }
+}
+
+renderBackgroundImagesGroup3 = () => {
+  if(this.state.windowScroll > 4000
+    && this.state.windowScroll < 7000){
+      return (
+        <section className="group_3">
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578914029/ford/7-02.svg" />
+          <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578914029/ford/6-02.svg" />
+        </section>
+      )
+    }
+}
+
+renderBackgroundImagesGroup4 = () => {
+  if(this.state.windowScroll > 2000
+    && this.state.windowScroll < 5000){
+      return (
+        <section className="group_4">
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578915177/ford/9-02.svg" />
+          <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578915177/ford/8-02-02.svg" />
+        </section>
+      )
+    }
+};
+
+renderBackgroundImagesGroup5 = () => {
+  if(this.state.windowScroll > 6500
+    && this.state.windowScroll < 12000){
+      return (
+        <section className="group_5">
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1575927998/franklin_ford/1.svg" />
+        </section>
+      )
+    }
+}
+
+
+renderBackgroundImagesGroup6 = () => {
+  if(this.state.windowScroll > 6500
+    && this.state.windowScroll < 14000){
+      return (
+        <section className="group_6">
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578940980/ford/10-02-02.svg" />
+        </section>
+      )
+    }
+}
+
+
+
 
 renderBackgroundImagesOnScreen = () =>  {
   return (
     <div className="background_images_container">
-      <img src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1573080265/ford/f_f_2.svg" />
-      <img src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1573080265/ford/f_f_3.svg" />
+      {this.renderBackgroundImagesGroup1()}
+      {this.renderBackgroundImagesGroup2()}
+      {this.renderBackgroundImagesGroup3()}
+      {this.renderBackgroundImagesGroup4()}
+      {this.renderBackgroundImagesGroup5()}
+      {this.renderBackgroundImagesGroup6()}
     </div>
   )
 }
@@ -135,15 +235,42 @@ renderFirstFold = () => {
   return <FirstFold {...this.state} />
 }
 
+renderSources = () => {
+  return <Sources {...this.state} />
+}
+
+renderImagesFold = () => {
+  return <FirstImageFold {...this.state} />
+}
+
+renderAbout = () => {
+  return <About {...this.state} />
+};
+
+renderNews = () => {
+  return <News {...this.state} />
+}
+
+renderTypedCode = () => {
+  return (
+    <div className="typed_code">
+      <img src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1573080265/ford/f_f_2.svg" />
+    </div>
+  )
+}
+
 
   render(){
-
-
     return (
       <div>
-      {this.displayMenuSticky()}
+      <p style={{position: "fixed"}}>{this.state.windowScroll}, {this.state.scrolled}</p>
+      {this.renderBackgroundImagesOnScreen()}
       {this.renderFirstFold()}
-      {this.renderInfoText()}
+      {this.renderIntroText()}
+      {this.renderImagesFold()}
+      {this.renderAbout()}
+      {this.renderSources()}
+      {this.renderNews()}
       </div>
     )
   }

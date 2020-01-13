@@ -31,35 +31,46 @@ class FirstFoldMetadataContainer extends React.Component {
      let sourceMetadata = this.props.data.sourceMetadata;
      let twitterMetadata = this.props.data.twitterMetadata;
 
-     console.log(sourceMetadata, twitterMetadata);
+     let metaData = {
+       sourceMetadata,
+       twitterMetadata
+     }
+
 
      let data = this.props.data.tweet;
 
      let visible = this.props.data.visible;
-     return this.handleContentState(data, visible);
+     return this.handleContentState(metaData, visible);
  }
 
-  handleContentState = (data, visible) => {
+  handleContentState = (metaData, visible) => {
     if(!visible){
-      return this.hideDiv(data)
+      return this.hideDiv(metaData)
     }else{
-      return this.makeDivVisible(data)
+      return this.makeDivVisible(metaData)
     }
   }
 
-  hideDiv = (data) => {
+  hideDiv = (metaData) => {
     this.setState({
       formattedContent: ""
     })
   }
 
-  makeDivVisible = (data) => {
+  makeDivVisible = (metaData) => {
+
+    let sourceMetadata = metaData.sourceMetadata;
+    let twitterMetadata = metaData.twitterMetadata;
+
     let formattedContent = () => {
       return (
-        <div>
-          <span>
-            {data}
-          </span>
+        <div className="metadata_first_fold">
+            <span>&#123;</span>
+            <span>Author_name: {sourceMetadata.Author_name},</span>
+            <span>PDF_name: {sourceMetadata.PDF_name},</span>
+            <span>Tweet_created_at: {twitterMetadata.Tweet_created_at},</span>
+            <span>Tweet_id_string: {twitterMetadata.Tweet_id_string}</span>
+            <span>&#123;</span>
         </div>
       )
     }
