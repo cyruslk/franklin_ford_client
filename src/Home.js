@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import ReactContactForm from 'react-mail-form';
 import axios from "axios";
 import _ from "lodash";
 import Typist from 'react-typist';
 import { HashLink as Link } from 'react-router-hash-link';
 
-import App from "./App.css"
+import App from "./App.css";
+import Canvas from "./Canvas.js"
 import About from "./About.js";
 import News from "./News.js";
 import FirstFold from "./FirstFold.js";
@@ -106,13 +108,15 @@ class Home extends React.Component {
 renderMenu = () => {
   return (
     <div className="sticky_container">
-        <ul>
-          <li><Link smooth to={`${window.location.pathname}#about`}><span>About</span></Link></li>
-          <li><Link smooth to={`${window.location.pathname}#sources`}><span>Sources</span></Link></li>
-          <li><Link smooth to={`${window.location.pathname}#news`}><span>News</span></Link></li>
-          <li><Link smooth to={`${window.location.pathname}#who`}><span>Who</span></Link></li>
-          <li><Link smooth to={`${window.location.pathname}#acknowledgments`}><span>Acknowledgments</span></Link></li>
-        </ul>
+        <div>
+            <span className="first">@FranklinFordBot</span>
+            <Link smooth to={`${window.location.pathname}#about`}><span>1. About</span></Link>
+            <Link smooth to={`${window.location.pathname}#sources`}><span>2. Sources</span></Link>
+            <Link smooth to={`${window.location.pathname}#news`}><span>3. News</span></Link>
+            <Link smooth to={`${window.location.pathname}#who`}><span>4. Who</span></Link>
+            <Link smooth to={`${window.location.pathname}#colophon`}><span>5. Colophon</span></Link>
+            <Link smooth to={`${window.location.pathname}#contact`}><span className="last">6. Contact</span></Link>
+        </div>
     </div>
   )
 }
@@ -161,7 +165,6 @@ renderBackgroundImagesGroup2 = () => {
     && this.state.windowScroll < 8000){
       return (
         <section className="group_2">
-          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578909815/ford/3-02.svg" />
           <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1578910716/ford/5-02-02.svg" />
         </section>
       )
@@ -216,6 +219,29 @@ renderBackgroundImagesGroup6 = () => {
 }
 
 
+renderBackgroundImagesGroup7 = () => {
+  if(this.state.windowScroll > 7000
+    && this.state.windowScroll < 7600){
+      return (
+        <section className="group_7">
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579010050/ford/15-02-02-02.svg" />
+        </section>
+      )
+    }
+}
+
+renderBackgroundImagesGroup8 = () => {
+  if(this.state.windowScroll > 0
+    && this.state.windowScroll < 820){
+      return (
+        <section className="group_8">
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1575929180/franklin_ford/4.svg" />
+        </section>
+      )
+    }
+}
+
+
 
 
 renderBackgroundImagesOnScreen = () =>  {
@@ -227,6 +253,7 @@ renderBackgroundImagesOnScreen = () =>  {
       {this.renderBackgroundImagesGroup4()}
       {this.renderBackgroundImagesGroup5()}
       {this.renderBackgroundImagesGroup6()}
+      {this.renderBackgroundImagesGroup8()}
     </div>
   )
 }
@@ -251,10 +278,21 @@ renderNews = () => {
   return <News {...this.state} />
 }
 
-renderTypedCode = () => {
+
+renderEmailForm = () => {
   return (
-    <div className="typed_code">
-      <img src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1573080265/ford/f_f_2.svg" />
+    <div>
+      <div className="main_container">
+        <div id="contact" className="contact_container">
+          <ReactContactForm
+            className="email_form"
+            titlePlaceholder="Title..."
+            contentsPlaceholder="Content..."
+            buttonText="SEND EMAIL"
+            to="address@gmail.com"
+           />
+        </div>
+      </div>
     </div>
   )
 }
@@ -263,14 +301,16 @@ renderTypedCode = () => {
   render(){
     return (
       <div>
-      <p style={{position: "fixed"}}>{this.state.windowScroll}, {this.state.scrolled}</p>
+      <p style={{position: "fixed"}}>{this.state.windowScroll}</p>
       {this.renderBackgroundImagesOnScreen()}
+      {this.renderMenu()}
       {this.renderFirstFold()}
       {this.renderIntroText()}
       {this.renderImagesFold()}
       {this.renderAbout()}
       {this.renderSources()}
       {this.renderNews()}
+      {this.renderEmailForm()}
       </div>
     )
   }

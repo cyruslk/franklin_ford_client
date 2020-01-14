@@ -27,6 +27,7 @@ class FirstFoldTweetsContainer extends React.Component {
   if (prevProps.data !== this.props.data) {
     return this.renderContent();
   }
+  console.log(this.props.data);
 }
 
  renderContent = () => {
