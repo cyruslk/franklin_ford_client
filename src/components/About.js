@@ -1,27 +1,21 @@
 import React from 'react';
-import App from "./App.css";
+import App from "../App.css";
 var parse = require('html-react-parser');
 
 
-class News extends React.Component {
+class About extends React.Component {
 
-  renderNewsContent = () => {
-    if(!this.props.news){
+  renderAboutContent = () => {
+    if(!this.props.about){
       return null
     }
-
-
-
-    let newsMaped = this.props.news
+    let aboutMaped = this.props.about
     .map((ele, index) => {
-
       let parsedText = parse(ele.Body_text)
-
       return (
         <div>
           <div className="about_container_main">
-            <h1>{parse(ele.headline)}</h1>
-            <span>{parse(ele.Date)}</span>
+            <h1>{parse(ele.Headline)}</h1>
             <p>{parsedText}</p>
           </div>
         </div>
@@ -30,23 +24,20 @@ class News extends React.Component {
 
     return (
       <div>
-        {newsMaped}
+        {aboutMaped}
       </div>
     )
   }
 
-
-
-
   render(){
     return (
       <div className="main_container">
-        <div id="news" className="about_container">
-          {this.renderNewsContent()}
+        <div id="about" className="about_container">
+          {this.renderAboutContent()}
         </div>
       </div>
     );
   }
 }
 
-export default News;
+export default About;

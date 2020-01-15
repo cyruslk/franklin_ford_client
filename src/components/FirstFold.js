@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FirstFoldTweetsContainer from "./FirstFoldTweetsContainer.js";
 import FirstFoldMetadataContainer from "./FirstFoldMetadataContainer.js"
-import App from "./App.css";
+import App from "../App.css";
 
 
 class FirstFold extends React.Component {
@@ -11,7 +11,8 @@ class FirstFold extends React.Component {
    super(props);
    this.state = {
      tweetsArray: null,
-     counter: 0
+     counter: 0,
+     overflow: "hidden"
    };
  }
 
@@ -38,13 +39,32 @@ class FirstFold extends React.Component {
 
  changeTweetsArray = () => {
    setTimeout(this.updateStateCounter, 3000);
+   this.updateScrollOnDivs()
+ }
+
+ // add a _.debounce() to toggle between overflow:hidden and overflow:scroll
+
+
+ updateScrollOnDivs = () => {
+   var targetedDiv = document.getElementById("typed_tweets");
+   var isScrolledToBottom = targetedDiv.scrollHeight - targetedDiv.clientHeight <= targetedDiv.scrollTop + 1;
+   if(!isScrolledToBottom){
+     return targetedDiv.scrollTop = targetedDiv.scrollHeight;
+   }
+ }
+
+ updateScrollOnDivsMetadata = () => {
+   var targetedDiv = document.getElementById("displayed_metadata");
+   var isScrolledToBottom = targetedDiv.scrollHeight - targetedDiv.clientHeight <= targetedDiv.scrollTop + 1;
+   if(!isScrolledToBottom){
+     return targetedDiv.scrollTop = targetedDiv.scrollHeight;
+   }
  }
 
  updateStateCounter = () => {
    this.setState({
      counter: this.state.counter+1
    }, () => {
-
      let formattedDataUpdated = this.props.mockDataTweets
        .map((ele, index) => ({
           index,
@@ -54,7 +74,6 @@ class FirstFold extends React.Component {
           visible: index <= this.state.counter,
           animation: index === this.state.counter
        }))
-
 
      this.setState({
        tweetsArray: formattedDataUpdated
@@ -73,9 +92,10 @@ renderFirstFoldTweets = () => {
    .map((ele, index) => {
      return (
        <FirstFoldTweetsContainer
-          changeTweetsArray={this.changeTweetsArray}
-          data={ele}
-          key={index}
+        updateScrollOnDivs={this.updateScrollOnDivs}
+        changeTweetsArray={this.changeTweetsArray}
+        data={ele}
+        key={index}
       />
      )
    })
@@ -89,6 +109,7 @@ renderFirstFoldTweets = () => {
    .map((ele, index) => {
      return (
        <FirstFoldMetadataContainer
+          updateScrollOnDivs={this.updateScrollOnDivsMetadata}
           data={ele}
           key={index}
       />
@@ -96,16 +117,28 @@ renderFirstFoldTweets = () => {
    })
  }
 
+ handleScroll = e => {
+  console.log(this.div.scrollTop);
+};
+
   render(){
     return (
+      <div>
       <main className="first_fold_container">
-          <div className="typed_tweets">
+          <div
+          style={{overflow: this.state.overflow}}
+          id="typed_tweets"
+          className="typed_tweets">
             {this.renderFirstFoldTweets()}
           </div>
-          <div className="displayed_metadata">
+          <div
+          style={{overflow: this.state.overflow}}
+          id="displayed_metadata"
+          className="displayed_metadata">
             {this.renderFirstFoldMetadata()}
         </div>
       </main>
+      </div>
     );
   }
 }

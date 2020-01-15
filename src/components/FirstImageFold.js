@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import SourcesComponent from "./SourcesComponent.js"
-import App from "./App.css";
+import App from "../App.css";
 
 
 class FirstImageFold extends React.Component {

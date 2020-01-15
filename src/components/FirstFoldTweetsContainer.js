@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import App from "./App.css";
+import App from "../App.css";
 
 
 class FirstFoldTweetsContainer extends React.Component {
-
 
   constructor(props) {
    super(props);
@@ -27,7 +26,6 @@ class FirstFoldTweetsContainer extends React.Component {
   if (prevProps.data !== this.props.data) {
     return this.renderContent();
   }
-  console.log(this.props.data);
 }
 
  renderContent = () => {
@@ -123,6 +121,8 @@ class FirstFoldTweetsContainer extends React.Component {
     }
     this.setState({
       formattedContent: formattedContent()
+    }, () => {
+      return this.props.updateScrollOnDivs()
     })
   }
 

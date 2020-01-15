@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './App.css';
+import App from "../App.css";
 
 class SourcesConponent extends Component {
 
@@ -25,7 +25,7 @@ class SourcesConponent extends Component {
     let index = this.props.index;
 
     return(
-      <div onClick={this.toggledBody} className="sources_container_main">
+      <div className="sources_container_main">
       <div key={index} className="sources_cell_container">
         <div className="sources_cell_container_first">
           <div className="year">

@@ -6,25 +6,24 @@ import Typist from 'react-typist';
 import { HashLink as Link } from 'react-router-hash-link';
 
 import App from "./App.css";
-import Canvas from "./Canvas.js"
-import About from "./About.js";
-import News from "./News.js";
-import FirstFold from "./FirstFold.js";
-import FirstImageFold from "./FirstImageFold.js";
-import SourcesComponent from "./SourcesComponent.js"
-import Sources from "./Sources.js";
-import Who from "./Who.js";
+import About from "./components//About.js";
+import News from "./components//News.js";
+import FirstFold from "./components//FirstFold.js";
+import FirstImageFold from "./components//FirstImageFold.js";
+import SourcesComponent from "./components//SourcesComponent.js"
+import Sources from "./components//Sources.js";
+import Who from "./components//Who.js";
 
 var parse = require('html-react-parser');
 var config = require('./config.js');
-const mock_data_tweets = require("./mock_data_tweets.js");
-const mock_data_cms = require("./mock_data_cms.js");
+const mock_data_tweets = require("./mock_data/mock_data_tweets.js");
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       mockDataTweets: _.reverse(mock_data_tweets),
+      tweetSamples: null,
       spreadsheetData: null,
       typistIndex: 0,
       about: null,
@@ -83,6 +82,17 @@ class Home extends React.Component {
         })
     })
 
+    fetch("https://franklin-ford-cms.herokuapp.com/tweetsamples")
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          tweetSamples: data
+        })
+    })
+
     fetch("https://franklin-ford-cms.herokuapp.com/news")
       .then((response) => {
         return response.json()
@@ -93,6 +103,7 @@ class Home extends React.Component {
         })
     })
   }
+
 
 
   listenToScroll = () => {
@@ -114,14 +125,13 @@ renderMenu = () => {
             <Link smooth to={`${window.location.pathname}#sources`}><span>2. Sources</span></Link>
             <Link smooth to={`${window.location.pathname}#news`}><span>3. News</span></Link>
             <Link smooth to={`${window.location.pathname}#who`}><span>4. Who</span></Link>
-            <Link smooth to={`${window.location.pathname}#colophon`}><span>5. Colophon</span></Link>
-            <Link smooth to={`${window.location.pathname}#contact`}><span className="last">6. Contact</span></Link>
+            <Link smooth to={`${window.location.pathname}#contact`}><span>5. Contact</span></Link>
+            <Link smooth to={`${window.location.pathname}#colophon`}><span className="last">6. Acknowledgments</span></Link>
         </div>
     </div>
   )
 }
 
-// change this from the CMS?
 renderIntroText = () => {
   if(!this.state.intro){
     return null;
@@ -220,8 +230,8 @@ renderBackgroundImagesGroup6 = () => {
 
 
 renderBackgroundImagesGroup7 = () => {
-  if(this.state.windowScroll > 7000
-    && this.state.windowScroll < 7600){
+  if(this.state.windowScroll > 500
+    && this.state.windowScroll < 2000){
       return (
         <section className="group_7">
           <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579010050/ford/15-02-02-02.svg" />
@@ -253,6 +263,7 @@ renderBackgroundImagesOnScreen = () =>  {
       {this.renderBackgroundImagesGroup4()}
       {this.renderBackgroundImagesGroup5()}
       {this.renderBackgroundImagesGroup6()}
+      {this.renderBackgroundImagesGroup7()}
       {this.renderBackgroundImagesGroup8()}
     </div>
   )
@@ -297,11 +308,38 @@ renderEmailForm = () => {
   )
 }
 
+renderWho = () => {
+  if(!this.state.whos){
+    return null;
+  }
+
+  let whosMaped = this.state.whos
+  .map((ele, index) => {
+    return(
+        <div>
+          <h1>{parse(ele.Name)}</h1>
+          <p>{parse(ele.Coordinates)}</p>
+        </div>
+    )
+  })
+
+  return (
+    <div className="main_container">
+      <div id="who" className="who_container">
+        {whosMaped}
+        {this.renderEmailForm()}
+      </div>
+    </div>
+  )
+}
+
 
   render(){
+
+    // <p style={{position: "fixed"}}>{this.state.windowScroll}</p>
+
     return (
       <div>
-      <p style={{position: "fixed"}}>{this.state.windowScroll}</p>
       {this.renderBackgroundImagesOnScreen()}
       {this.renderMenu()}
       {this.renderFirstFold()}
@@ -310,7 +348,8 @@ renderEmailForm = () => {
       {this.renderAbout()}
       {this.renderSources()}
       {this.renderNews()}
-      {this.renderEmailForm()}
+      {this.renderImagesFold()}
+      {this.renderWho()}
       </div>
     )
   }

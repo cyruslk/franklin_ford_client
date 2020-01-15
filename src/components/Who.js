@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import App from "./App.css";
+import App from "../App.css";
 
 
 class Who extends React.Component {
 
 
   renderWhoContent = () => {
-    if(!this.props.mockDataCms){
+    if(!this.props.who){
       return null
     }
+    console.log(this.props.who);
+
+    
     let data = this.props.mockDataCms[1].who
     let mapedData = data.map((ele, index) => {
       return (
