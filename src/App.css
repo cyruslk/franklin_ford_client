@@ -4,6 +4,11 @@
 }
 
 @font-face {
+  font-family: 'lyon';
+  src: url('fonts/lyon.otf'); /* IE9 Compat Modes */
+}
+
+@font-face {
   font-family: 'TimesN';
   src: url('fonts/TimesN.otf'); /* IE9 Compat Modes */
 }
@@ -76,12 +81,9 @@ p{
   margin-bottom: 4vw;
   border-bottom: 1px dotted;
   width: 45vw;
-  padding-bottom: 6vw;
+  padding-bottom: 4vw;
 }
 
-.about_container_main:last-child{
-  border-bottom: 1px dotted;
-}
 
 .about_container_main span{
   font-family: Favorit-LightMono;
@@ -90,6 +92,9 @@ p{
 }
 
 .about_container a{
+  border-bottom: 1px dotted;
+}
+.news_container a{
   border-bottom: 1px dotted;
 }
 
@@ -253,7 +258,7 @@ p{
   padding-top: 0.7vw;
   text-transform: uppercase;
   font-family: Plantin;
-  font-size: 1vw;
+  font-size: 1.2vw;
 }
 
 
@@ -292,19 +297,79 @@ p{
 }
 
 
-.img_first_fold_container{
-  padding-top: 3vw;
-  padding-bottom: 3vw;
+.caption_first_fold_container{
   width: 100vw;
+  display: flex;
+  align-items: baseline;
+  background-color: #F5F5F5;
+  z-index: 10;
+  position: relative;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+}
+
+.caption_first_fold_container div{
+  width: 33.33vw;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #e8e8e8;
-  border-top: 1px dotted black;
-  border-bottom: 1px dotted black;
+}
+
+.caption_first_fold_container div span{
+  font-family: Favorit-LightMono;
+font-size: 1vw;
+}
+
+
+.img_first_fold_container{
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border-top: 1px dotted #F5F5F5;
   position: relative;
   z-index: 10;
+}
+
+.img_first_fold_container div{
+  width: 33.33vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px dotted #F5F5F5;
+  flex-direction: column;
+}
+
+.img_first_fold_container div:first-child{
+  border-left: 1px dotted #F5F5F5;
+}
+
+.img_full img{
+  width: 89%;
+  background-color: #e8e8e8;
+}
+
+ul{
+  margin-bottom: 0;
+}
+
+.about_container_main_master{
+  width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img_first_fold_container div span{
+  color: white;
+  position: absolute;
+  bottom: 3vw;
+  margin: 0;
+  font-family: Favorit-LightMono;
+  font-size: 1vw;
 }
 
 
@@ -313,10 +378,10 @@ p{
   margin-bottom: 3vw;
 }
 
-
-.img_full img{
-  width: 85vw;
-  background-color: #e8e8e8;
+sup {
+  font-family: Plantin;
+  font-size: 1vw;
+  font-weight: 600;
 }
 
 
@@ -329,8 +394,11 @@ p{
 }
 
 .sources_cell_container span{
-  font-family: Favorit-LightMono;
-  font-size: 1.3vw;
+  /* font-family: Favorit-LightMono;
+  font-size: 1.3vw; */
+  text-transform: uppercase;
+  font-family: Plantin;
+  font-size: 1.2vw;
 }
 
 .source_container{
@@ -377,8 +445,10 @@ p{
 }
 
 .info_text_container,
-.contact_container,
 .who_container,
+.contact_container,
+.acknowledgments_container,
+.news_container,
 .about_container{
   padding-top: 6vw;
   padding-bottom: 6vw;
@@ -388,13 +458,19 @@ p{
 }
 
 .contact_container{
-  border-bottom: 1px dotted;
+  border-bottom: none;
 }
 
 .about_container div div:last-child .about_container_main{
   border-bottom: none;
   padding-bottom: 0;
   margin-bottom: 0;
+}
+
+
+
+.about_container div div:last-child .about_container_main h1{
+  display: none;
 }
 
 .headlines{
@@ -509,6 +585,7 @@ p{
 .background_images_container .group_8 img:first-child{
   left: 4vw;
   bottom: 18vw;
+  display: none;
 }
 
 .background_images_container .group_7 img:first-child{
@@ -516,6 +593,28 @@ p{
   top: 10vw;
 }
 
+.background_images_container .group_9 img:first-child{
+  left: 4vw;
+  bottom: 10vw;
+}
+
+.background_images_container .group_9 img:nth-child(2){
+  right: 4vw;
+  bottom: 10vw;
+}
+
+
+.background_images_container .group_10 img:first-child{
+  left: 4vw;
+  bottom: 10vw;
+  display: none;
+}
+
+
+.background_images_container .group_11 img:first-child{
+  right: 5vw;
+  bottom: 10vw;
+}
 
 
 .background_images_container{
@@ -562,7 +661,7 @@ p{
 }
 
 .background_images_container .group_5 .big{
-  max-width: 19vw;
+      max-width: 23vw;
 }
 
 .background_images_container .group_5 .small{
@@ -584,6 +683,23 @@ p{
     max-width: 53vw;
 }
 
+.background_images_container .group_9 .small{
+  max-width: 10vw;
+}
+
+.background_images_container .group_9 .big{
+  max-width: 20vw;
+}
+
+.background_images_container .group_10 .small{
+  max-width: 20vw;
+}
+
+.background_images_container .group_11 .small{
+  max-width: 20vw;
+}
+
+
 .email_form{
   flex-direction: column;
   display: flex;
@@ -592,7 +708,7 @@ p{
 }
 
 .email_form input, .email_form textarea{
-  width: 100%;
+  width: 43vw;
   background-color: #e8e8e8;
   color: none;
   border: 1px dotted black;
@@ -664,7 +780,8 @@ p{
 }
 
 
-.about_container h1{
+.about_container h1,
+.news_container h1{
   margin-top: 0;
   margin-bottom: 3vw;
   font-family: Plantin;
@@ -674,10 +791,11 @@ p{
   font-weight: lighter;
 }
 
-.about_container p{
+.about_container p,
+.news_container p{
   font-family: Plantin;
   line-height: 1.4;
-  font-size: 1.4vw;
+  font-size: 1.5vw;
   margin-bottom: 0;
   width: 45vw;
 }
@@ -691,32 +809,65 @@ p{
   width: 10vw;
 }
 
-.who_container{
+
+.who_container,
+.contact_container,
+.acknowledgments_container{
   display: flex;
   align-items: baseline;
   width: 45vw;
-}
-
-.who_container p{
-  font-family: Plantin;
-  line-height: 1.4;
-  font-size: 1.4vw;
-}
-
-.who_container a{
-  font-family: Plantin;
-  line-height: 1.4;
-  font-weight: lighter;
-  font-size: 1.4vw;
   border-bottom: 1px dotted;
 }
 
-.who_container div h1{
+.who_container p,
+.acknowledgments_container p{
   font-family: Plantin;
-  font-size: 2.7vw;
+  line-height: 1.4;
+  font-size: 1.2vw;
+}
+
+.who_container a,
+.acknowledgments_container a{
+  font-family: Plantin;
+  line-height: 1.4;
+  font-weight: lighter;
+  font-size: 1.2vw;
+  border-bottom: 1px dotted;
+}
+
+.who_container section,
+.acknowledgments_container section{
+    margin-bottom: 3vw;
+}
+
+
+.who_container section{
+  display: flex;
+  align-items: baseline;
+}
+
+
+.who_container section div:first-child{
+  width: 40%;
+}
+
+.who_container section div:last-child{
+  width: 60%;
+}
+
+.who_container section:last-child,
+.acknowledgments_container section:last-child{
+  margin-bottom: 0;
+}
+
+.who_container section h1,
+.acknowledgments_container section h1{
+  font-family: Plantin;
+  font-size: 2vw;
   font-weight: 100;
   margin: 0;
   margin-bottom: 2vw;
+  text-align: left;
 }
 
 

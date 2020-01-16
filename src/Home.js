@@ -31,7 +31,7 @@ class Home extends React.Component {
       news: null,
       acknowledgments: null,
       windowScroll: 0,
-      scrolled: 0
+      scrolled: 0,
     };
   }
 
@@ -93,6 +93,16 @@ class Home extends React.Component {
         })
     })
 
+    fetch("https://franklin-ford-cms.herokuapp.com/acknowledgments")
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        this.setState({
+          acknowledgments: data
+        })
+    })
+
     fetch("https://franklin-ford-cms.herokuapp.com/news")
       .then((response) => {
         return response.json()
@@ -102,6 +112,7 @@ class Home extends React.Component {
           news: data
         })
     })
+
   }
 
 
@@ -125,8 +136,8 @@ renderMenu = () => {
             <Link smooth to={`${window.location.pathname}#sources`}><span>2. Sources</span></Link>
             <Link smooth to={`${window.location.pathname}#news`}><span>3. News</span></Link>
             <Link smooth to={`${window.location.pathname}#who`}><span>4. Who</span></Link>
-            <Link smooth to={`${window.location.pathname}#contact`}><span>5. Contact</span></Link>
-            <Link smooth to={`${window.location.pathname}#colophon`}><span className="last">6. Acknowledgments</span></Link>
+            <Link smooth to={`${window.location.pathname}#acknowledgments`}><span>5. Acknowledgments</span></Link>
+            <Link smooth to={`${window.location.pathname}#contact`}><span className="last">6. Contact</span></Link>
         </div>
     </div>
   )
@@ -154,6 +165,9 @@ renderIntroText = () => {
     </div>
   )
 };
+
+
+// will optimze this
 
 renderBackgroundImagesGroup1 = () => {
   if(this.state.windowScroll > 3000
@@ -210,7 +224,7 @@ renderBackgroundImagesGroup5 = () => {
     && this.state.windowScroll < 12000){
       return (
         <section className="group_5">
-          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1575927998/franklin_ford/1.svg" />
+          <img className="big" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579129244/ford/155_master-02.svg" />
         </section>
       )
     }
@@ -251,6 +265,39 @@ renderBackgroundImagesGroup8 = () => {
     }
 }
 
+renderBackgroundImagesGroup9 = () => {
+  if(this.state.windowScroll > 7800
+    && this.state.windowScroll < 14000){
+      return (
+        <section className="group_9">
+        <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579128256/ford/13_master-02.svg" />
+        <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579129030/ford/16_master-02.svg" />
+        </section>
+      )
+    }
+}
+
+renderBackgroundImagesGroup10 = () => {
+  if(this.state.windowScroll > 7800
+    && this.state.windowScroll < 14000){
+      return (
+        <section className="group_10">
+        <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579129829/ford/1444_master-02.svg" />
+        </section>
+      )
+    }
+}
+
+renderBackgroundImagesGroup11 = () => {
+  if(this.state.windowScroll > 16000
+    && this.state.windowScroll < 19000){
+      return (
+        <section className="group_11">
+        <img className="small" src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579129829/ford/1444_master-02.svg" />
+        </section>
+      )
+    }
+}
 
 
 
@@ -265,6 +312,9 @@ renderBackgroundImagesOnScreen = () =>  {
       {this.renderBackgroundImagesGroup6()}
       {this.renderBackgroundImagesGroup7()}
       {this.renderBackgroundImagesGroup8()}
+      {this.renderBackgroundImagesGroup9()}
+      {this.renderBackgroundImagesGroup10()}
+      {this.renderBackgroundImagesGroup11()}
     </div>
   )
 }
@@ -300,7 +350,7 @@ renderEmailForm = () => {
             titlePlaceholder="Title..."
             contentsPlaceholder="Content..."
             buttonText="SEND EMAIL"
-            to="address@gmail.com"
+            to="juliette.de.maeyer@umontreal.ca"
            />
         </div>
       </div>
@@ -316,10 +366,14 @@ renderWho = () => {
   let whosMaped = this.state.whos
   .map((ele, index) => {
     return(
-        <div>
-          <h1>{parse(ele.Name)}</h1>
-          <p>{parse(ele.Coordinates)}</p>
-        </div>
+        <section>
+          <div>
+            <h1>{parse(ele.Name)}</h1>
+          </div>
+          <div>
+            <p>{parse(ele.Coordinates)}</p>
+          </div>
+        </section>
     )
   })
 
@@ -327,7 +381,31 @@ renderWho = () => {
     <div className="main_container">
       <div id="who" className="who_container">
         {whosMaped}
-        {this.renderEmailForm()}
+      </div>
+    </div>
+  )
+}
+
+renderAcknowledgments = () => {
+
+  if(!this.state.acknowledgments){
+    return null
+  }
+
+  let acknowledgmentsMaped = this.state.acknowledgments
+  .map((ele, index) => {
+    return (
+      <section>
+        <h1>{parse(ele.headline)}</h1>
+        <p>{parse(ele.Body_text)}</p>
+      </section>
+    )
+  })
+
+  return (
+    <div className="main_container">
+      <div id="acknowledgments" className="acknowledgments_container">
+        {acknowledgmentsMaped}
       </div>
     </div>
   )
@@ -336,7 +414,21 @@ renderWho = () => {
 
   render(){
 
+
     // <p style={{position: "fixed"}}>{this.state.windowScroll}</p>
+
+    // {this.renderBackgroundImagesOnScreen()}
+    // {this.renderMenu()}
+    // {this.renderFirstFold()}
+    // {this.renderIntroText()}
+    // {this.renderImagesFold()}
+    // {this.renderAbout()}
+    // {this.renderSources()}
+    // {this.renderNews()}
+
+
+    // {this.renderAcknowledgments()}
+    // {this.renderEmailForm()}
 
     return (
       <div>
@@ -350,6 +442,8 @@ renderWho = () => {
       {this.renderNews()}
       {this.renderImagesFold()}
       {this.renderWho()}
+      {this.renderAcknowledgments()}
+      {this.renderEmailForm()}
       </div>
     )
   }

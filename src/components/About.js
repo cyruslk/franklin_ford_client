@@ -13,7 +13,7 @@ class About extends React.Component {
     .map((ele, index) => {
       let parsedText = parse(ele.Body_text)
       return (
-        <div>
+        <div className="about_container_main_master">
           <div className="about_container_main">
             <h1>{parse(ele.Headline)}</h1>
             <p>{parsedText}</p>
