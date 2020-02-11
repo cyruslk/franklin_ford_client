@@ -80,7 +80,7 @@ p{
   flex-direction: column;
   margin-bottom: 4vw;
   border-bottom: 1px dotted;
-  width: 45vw;
+  width: 50vw;
   padding-bottom: 4vw;
 }
 
@@ -148,6 +148,10 @@ p{
 }
 
 
+.sources_container_main_container{
+  cursor: pointer;
+}
+
 
 .typed_tweets{
   width: 65vw;
@@ -179,7 +183,7 @@ p{
 
 .typed_tweets div span{
   font-family: Plantin;
-  font-size: 3vw;
+  font-size: 2.5vw;
 }
 
 .displayed_metadata::-webkit-scrollbar {
@@ -491,7 +495,7 @@ sup {
 .info_text_container p:first-child{
   margin-bottom: 6vw;
   font-family: Plantin;
-  font-size: 3.3vw;
+  font-size: 3vw;
   width: 65vw;
   text-align: center;
 }
@@ -797,7 +801,7 @@ sup {
   line-height: 1.4;
   font-size: 1.5vw;
   margin-bottom: 0;
-  width: 45vw;
+  width: 50vw;
 }
 
 .typed_code{

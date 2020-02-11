@@ -4,7 +4,6 @@ import axios from "axios";
 import _ from "lodash";
 import Typist from 'react-typist';
 import { HashLink as Link } from 'react-router-hash-link';
-
 import App from "./App.css";
 import About from "./components//About.js";
 import News from "./components//News.js";
@@ -15,8 +14,10 @@ import Sources from "./components//Sources.js";
 import Who from "./components//Who.js";
 
 var parse = require('html-react-parser');
+var scrollToElement = require('scroll-to-element');
 var config = require('./config.js');
 const mock_data_tweets = require("./mock_data/mock_data_tweets.js");
+const mock_data_imgs = require("./mock_data/mock_data_imgs.js");
 
 class Home extends React.Component {
   constructor(props) {
@@ -37,9 +38,17 @@ class Home extends React.Component {
 
   componentDidMount(){
 
+
+    let locationPathname = window.location.pathname;
+    if(locationPathname !== "/"){
+      console.log(locationPathname.split("/")[1]);
+      let pathnameToScroll = "#" + locationPathname.split("/")[1];
+      scrollToElement(pathnameToScroll);
+    }
+
+
     window.addEventListener('scroll', this.listenToScroll)
 
-    // call to the spreadsheetAPI
     let spreadsheetAPI = config.preFix + config.sheetID + config.postFix;
     axios.get(spreadsheetAPI)
       .then((response) => {
@@ -49,6 +58,8 @@ class Home extends React.Component {
       }).catch((err) => {
       console.log(err);
     })
+
+
 
     //call the cms routes here
     fetch("https://franklin-ford-cms.herokuapp.com/abouts")
@@ -87,7 +98,6 @@ class Home extends React.Component {
         return response.json()
       })
       .then((data) => {
-        console.log(data);
         this.setState({
           tweetSamples: data
         })
@@ -115,8 +125,6 @@ class Home extends React.Component {
 
   }
 
-
-
   listenToScroll = () => {
     const windowScroll = document.body.scrollTop || document.documentElement.scrollTop
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight
@@ -126,6 +134,7 @@ class Home extends React.Component {
       scrolled
     })
   }
+
 
 renderMenu = () => {
   return (
@@ -170,6 +179,7 @@ renderIntroText = () => {
 // will optimze this
 
 renderBackgroundImagesGroup1 = () => {
+  console.log("going there----?");
   if(this.state.windowScroll > 3000
     && this.state.windowScroll < 6000){
     return (
@@ -302,6 +312,7 @@ renderBackgroundImagesGroup11 = () => {
 
 
 renderBackgroundImagesOnScreen = () =>  {
+  console.log("going there?");
   return (
     <div className="background_images_container">
       {this.renderBackgroundImagesGroup1()}
@@ -413,39 +424,22 @@ renderAcknowledgments = () => {
 
 
   render(){
-
-
-    // <p style={{position: "fixed"}}>{this.state.windowScroll}</p>
-
-    // {this.renderBackgroundImagesOnScreen()}
-    // {this.renderMenu()}
-    // {this.renderFirstFold()}
-    // {this.renderIntroText()}
-    // {this.renderImagesFold()}
-    // {this.renderAbout()}
-    // {this.renderSources()}
-    // {this.renderNews()}
-
-
-    // {this.renderAcknowledgments()}
-    // {this.renderEmailForm()}
-
-    return (
-      <div>
-      {this.renderBackgroundImagesOnScreen()}
-      {this.renderMenu()}
-      {this.renderFirstFold()}
-      {this.renderIntroText()}
-      {this.renderImagesFold()}
-      {this.renderAbout()}
-      {this.renderSources()}
-      {this.renderNews()}
-      {this.renderImagesFold()}
-      {this.renderWho()}
-      {this.renderAcknowledgments()}
-      {this.renderEmailForm()}
-      </div>
-    )
+      return (
+        <div>
+        {this.renderBackgroundImagesOnScreen()}
+        {this.renderMenu()}
+        {this.renderFirstFold()}
+        {this.renderIntroText()}
+        {this.renderImagesFold()}
+        {this.renderAbout()}
+        {this.renderSources()}
+        {this.renderNews()}
+        {this.renderImagesFold()}
+        {this.renderWho()}
+        {this.renderAcknowledgments()}
+        {this.renderEmailForm()}
+        </div>
+      )
   }
 
 }

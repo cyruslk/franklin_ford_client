@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SourcesComponentBody from "./SourcesComponentBody.js"
 import App from "../App.css";
 
 class SourcesConponent extends Component {
@@ -6,14 +7,24 @@ class SourcesConponent extends Component {
   constructor() {
     super();
     this.state = {
-      toggled: false
+      canBeToggled: false,
+      toggled: false,
+      sourceId: null
     }
   }
 
-  toggledBody = () => {
+  componentDidMount(){
+    let ele = this.props.ele;
+  }
+
+  toggleContent = () => {
     this.setState({
       toggled: !this.state.toggled
     })
+  }
+
+  triggerIndicator = (bool) => {
+    this.props.triggerIndicator(bool)
   }
 
   renderCell = () => {
@@ -23,9 +34,14 @@ class SourcesConponent extends Component {
 
     let ele = this.props.ele;
     let index = this.props.index;
+    let titleFormatted = ele.gsx$title.$t;
 
     return(
-      <div className="sources_container_main">
+      <div
+      onMouseEnter={() => this.triggerIndicator(true)}
+      onMouseLeave={() => this.triggerIndicator(false)}
+      onClick={this.toggleContent}
+      className="sources_container_main">
       <div key={index} className="sources_cell_container">
         <div className="sources_cell_container_first">
           <div className="year">
@@ -56,14 +72,14 @@ class SourcesConponent extends Component {
     }
     return (
       <div>
-        content related to the text here.
+        <SourcesComponentBody {...this.props}/>
       </div>
     )
   }
 
   render() {
     return (
-      <div>
+      <div className="sources_container_main_container">
         {this.renderCell()}
         {this.renderBody()}
       </div>

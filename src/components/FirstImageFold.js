@@ -11,7 +11,7 @@ class FirstImageFold extends React.Component {
         <div class="img_first_fold_container">
             <div className="img_full">
               <img src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579134911/franklin_ford/1882_Ford---Tontine-What-It-Is-How-It-Works-1.jpg" />
-              <span>01. fvdfv</span>
+              <span>1882_Ford---Tontine-What-It-Is-How-It-Works-1.jpg</span>
             </div>
             <div className="img_full">
               <img src="https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579170346/franklin_ford/1914_Letter_Foxwell_AND_1910_Duplicate_-The_Public_Necessity-2.jpg" />
