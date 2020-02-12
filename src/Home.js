@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactContactForm from 'react-mail-form';
 import axios from "axios";
 import _ from "lodash";
-import Typist from 'react-typist';
 import { HashLink as Link } from 'react-router-hash-link';
 import App from "./App.css";
 import About from "./components//About.js";
@@ -12,7 +11,6 @@ import FirstImageFold from "./components//FirstImageFold.js";
 import SourcesComponent from "./components//SourcesComponent.js"
 import Sources from "./components//Sources.js";
 import Who from "./components//Who.js";
-
 var parse = require('html-react-parser');
 var scrollToElement = require('scroll-to-element');
 var config = require('./config.js');
@@ -33,19 +31,11 @@ class Home extends React.Component {
       acknowledgments: null,
       windowScroll: 0,
       scrolled: 0,
+      targetedSource: null,
     };
   }
 
   componentDidMount(){
-
-
-    let locationPathname = window.location.pathname;
-    if(locationPathname !== "/"){
-      console.log(locationPathname.split("/")[1]);
-      let pathnameToScroll = "#" + locationPathname.split("/")[1];
-      scrollToElement(pathnameToScroll);
-    }
-
 
     window.addEventListener('scroll', this.listenToScroll)
 
@@ -57,9 +47,7 @@ class Home extends React.Component {
         })
       }).catch((err) => {
       console.log(err);
-    })
-
-
+    });
 
     //call the cms routes here
     fetch("https://franklin-ford-cms.herokuapp.com/abouts")
@@ -70,7 +58,7 @@ class Home extends React.Component {
         this.setState({
           about: data
         })
-    })
+    });
 
     fetch("https://franklin-ford-cms.herokuapp.com/whos")
       .then((response) => {
@@ -80,7 +68,7 @@ class Home extends React.Component {
         this.setState({
           whos: data
         })
-    })
+    });
 
 
     fetch("https://franklin-ford-cms.herokuapp.com/mains")
@@ -91,7 +79,7 @@ class Home extends React.Component {
         this.setState({
           intro: data
         })
-    })
+    });
 
     fetch("https://franklin-ford-cms.herokuapp.com/tweetsamples")
       .then((response) => {
@@ -101,7 +89,7 @@ class Home extends React.Component {
         this.setState({
           tweetSamples: data
         })
-    })
+    });
 
     fetch("https://franklin-ford-cms.herokuapp.com/acknowledgments")
       .then((response) => {
@@ -111,7 +99,7 @@ class Home extends React.Component {
         this.setState({
           acknowledgments: data
         })
-    })
+    });
 
     fetch("https://franklin-ford-cms.herokuapp.com/news")
       .then((response) => {
@@ -121,9 +109,27 @@ class Home extends React.Component {
         this.setState({
           news: data
         })
-    })
+    });
 
+    this.makeDivVisible();
+
+  };
+
+  makeDivVisible = () => {
+
+    window.location.hash = window.decodeURIComponent(window.location.hash);
+    let hash = window.location.hash;
+
+    if(hash.length > 0){
+      setTimeout(() => {
+        window.location.hash = window.decodeURIComponent(window.location.hash);
+        document.querySelector(`${window.location.hash}`).scrollIntoView();
+      }, 2000);
+    }else{
+      return;
+    }
   }
+
 
   listenToScroll = () => {
     const windowScroll = document.body.scrollTop || document.documentElement.scrollTop
@@ -179,7 +185,6 @@ renderIntroText = () => {
 // will optimze this
 
 renderBackgroundImagesGroup1 = () => {
-  console.log("going there----?");
   if(this.state.windowScroll > 3000
     && this.state.windowScroll < 6000){
     return (
@@ -287,6 +292,7 @@ renderBackgroundImagesGroup9 = () => {
     }
 }
 
+
 renderBackgroundImagesGroup10 = () => {
   if(this.state.windowScroll > 7800
     && this.state.windowScroll < 14000){
@@ -309,10 +315,7 @@ renderBackgroundImagesGroup11 = () => {
     }
 }
 
-
-
 renderBackgroundImagesOnScreen = () =>  {
-  console.log("going there?");
   return (
     <div className="background_images_container">
       {this.renderBackgroundImagesGroup1()}
@@ -335,7 +338,11 @@ renderFirstFold = () => {
 }
 
 renderSources = () => {
-  return <Sources {...this.state} />
+  return (
+    <Sources
+    {...this.state}
+    />
+  )
 }
 
 renderImagesFold = () => {

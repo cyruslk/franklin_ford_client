@@ -9,11 +9,10 @@ class Sources extends React.Component {
   constructor(props) {
    super(props);
    this.state = {
-    isTriggeredIndicator: false
+    isTriggeredIndicator: false,
+    index: 0
    };
  }
-
-
 
   triggerIndicator = (bool) => {
     this.setState({
@@ -21,21 +20,30 @@ class Sources extends React.Component {
     })
   }
 
+  enableTheScrollToView = (index) => {
+    console.log(index);
+  }
+
+
   renderSourcesContent = () => {
     if(!this.props.spreadsheetData){
       return null;
     }
-    let spreadSheetData = this.props.spreadsheetData;
 
+    let spreadSheetData = this.props.spreadsheetData;
     let cellSources = spreadSheetData.map((ele, index) => {
+
       return (
         <SourcesComponent
+          enableTheScrollToView={this.enableTheScrollToView}
           triggerIndicator={this.triggerIndicator}
+          listCount={spreadSheetData.length}
           ele={ele}
           index={index}
         />
       )
-    })
+    });
+
 
     return (
         <div>
@@ -47,7 +55,6 @@ class Sources extends React.Component {
 
 
   renderIndicator = () => {
-
     let style = {
       position: "fixed",
       right: "0",

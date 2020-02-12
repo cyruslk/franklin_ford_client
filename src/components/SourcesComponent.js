@@ -13,9 +13,6 @@ class SourcesConponent extends Component {
     }
   }
 
-  componentDidMount(){
-    let ele = this.props.ele;
-  }
 
   toggleContent = () => {
     this.setState({
@@ -27,17 +24,30 @@ class SourcesConponent extends Component {
     this.props.triggerIndicator(bool)
   }
 
+  cleaningTheAnchorTag = (stringToClean) => {
+     let stringToLowerCase = stringToClean.toLowerCase();
+     return stringToLowerCase.split("")
+     .map((ele, index) => {
+       if(ele === " "){
+         return "-"
+       }else{
+         return ele;
+       }
+     }).join("");
+   }
+
   renderCell = () => {
     if(!this.props.ele){
       return null;
     };
-
     let ele = this.props.ele;
     let index = this.props.index;
     let titleFormatted = ele.gsx$title.$t;
 
+    let anchorOfCell = this.cleaningTheAnchorTag(titleFormatted);
     return(
       <div
+      id={anchorOfCell}
       onMouseEnter={() => this.triggerIndicator(true)}
       onMouseLeave={() => this.triggerIndicator(false)}
       onClick={this.toggleContent}
@@ -66,6 +76,7 @@ class SourcesConponent extends Component {
     )
   }
 
+
   renderBody = () => {
     if(!this.state.toggled){
       return null;
@@ -76,7 +87,6 @@ class SourcesConponent extends Component {
       </div>
     )
   }
-
   render() {
     return (
       <div className="sources_container_main_container">
