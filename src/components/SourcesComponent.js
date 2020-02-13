@@ -9,19 +9,21 @@ class SourcesConponent extends Component {
     this.state = {
       canBeToggled: false,
       toggled: false,
-      sourceId: null
+      sourceId: null,
+      anchorTag: null
     }
   }
 
+  componentDidMount(){
+    if(this.props.ele){
 
-  toggleContent = () => {
-    this.setState({
-      toggled: !this.state.toggled
-    })
-  }
-
-  triggerIndicator = (bool) => {
-    this.props.triggerIndicator(bool)
+      let ele = this.props.ele;
+      let titleFormatted = ele.gsx$title.$t;
+      let anchorTag = this.cleaningTheAnchorTag(titleFormatted);
+      this.setState({
+        anchorTag
+      })
+    }
   }
 
   cleaningTheAnchorTag = (stringToClean) => {
@@ -34,20 +36,28 @@ class SourcesConponent extends Component {
          return ele;
        }
      }).join("");
-   }
+   };
+
+
+  toggleContent = () => {
+    this.setState({
+      toggled: !this.state.toggled
+    })
+  }
+
+  triggerIndicator = (bool) => {
+    this.props.triggerIndicator(bool)
+  }
 
   renderCell = () => {
-    if(!this.props.ele){
+    if(!this.props.ele && !this.state.anchorTag){
       return null;
     };
     let ele = this.props.ele;
     let index = this.props.index;
-    let titleFormatted = ele.gsx$title.$t;
-
-    let anchorOfCell = this.cleaningTheAnchorTag(titleFormatted);
     return(
       <div
-      id={anchorOfCell}
+      id={this.state.anchorTag}
       onMouseEnter={() => this.triggerIndicator(true)}
       onMouseLeave={() => this.triggerIndicator(false)}
       onClick={this.toggleContent}
@@ -77,15 +87,32 @@ class SourcesConponent extends Component {
   }
 
 
+  // this is a bit hacky
   renderBody = () => {
-    if(!this.state.toggled){
+    if(!this.state.anchorTag){
       return null;
+    }else{
+      let anchorTagBody = `${this.state.anchorTag}_body`;
+      if(this.state.toggled){
+        return (
+          <div>
+            <SourcesComponentBody
+            display={"block"}
+            anchorTagBody={anchorTagBody}
+            {...this.props}/>
+          </div>
+        )
+      }else{
+        return (
+          <div>
+            <SourcesComponentBody
+            display={"none"}
+            anchorTagBody={anchorTagBody}
+            {...this.props}/>
+          </div>
+        )
+      }
     }
-    return (
-      <div>
-        <SourcesComponentBody {...this.props}/>
-      </div>
-    )
   }
   render() {
     return (

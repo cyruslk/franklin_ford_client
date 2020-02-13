@@ -21,6 +21,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      menu: ["about", "sources", "news", "acknowledgments", "contact"],
       mockDataTweets: _.reverse(mock_data_tweets),
       tweetSamples: null,
       spreadsheetData: null,
@@ -32,6 +33,7 @@ class Home extends React.Component {
       windowScroll: 0,
       scrolled: 0,
       targetedSource: null,
+      loadingScreen: false
     };
   }
 
@@ -110,20 +112,23 @@ class Home extends React.Component {
           news: data
         })
     });
-
     this.makeDivVisible();
-
   };
 
   makeDivVisible = () => {
-
     window.location.hash = window.decodeURIComponent(window.location.hash);
     let hash = window.location.hash;
-
     if(hash.length > 0){
+      this.setState({
+        loadingScreen:true
+      })
       setTimeout(() => {
+        this.setState({
+          loadingScreen:false
+        })
         window.location.hash = window.decodeURIComponent(window.location.hash);
         document.querySelector(`${window.location.hash}`).scrollIntoView();
+        document.querySelector(`${window.location.hash}_body`).style.display = "block";
       }, 2000);
     }else{
       return;
@@ -142,11 +147,17 @@ class Home extends React.Component {
   }
 
 
+  reloadThePage = () => {
+    window.scroll(0,0)
+    window.location.reload()
+  }
+
+
 renderMenu = () => {
   return (
     <div className="sticky_container">
         <div>
-            <span className="first">@FranklinFordBot</span>
+            <span onClick={this.reloadThePage} className="first">@FranklinFordBot</span>
             <Link smooth to={`${window.location.pathname}#about`}><span>1. About</span></Link>
             <Link smooth to={`${window.location.pathname}#sources`}><span>2. Sources</span></Link>
             <Link smooth to={`${window.location.pathname}#news`}><span>3. News</span></Link>
@@ -428,25 +439,31 @@ renderAcknowledgments = () => {
     </div>
   )
 }
-
-
   render(){
-      return (
-        <div>
-        {this.renderBackgroundImagesOnScreen()}
-        {this.renderMenu()}
-        {this.renderFirstFold()}
-        {this.renderIntroText()}
-        {this.renderImagesFold()}
-        {this.renderAbout()}
-        {this.renderSources()}
-        {this.renderNews()}
-        {this.renderImagesFold()}
-        {this.renderWho()}
-        {this.renderAcknowledgments()}
-        {this.renderEmailForm()}
-        </div>
-      )
+      if(this.state.loadingScreen){
+        return (
+          <div className="loading_screen">
+            <span>Pulling the content from the database</span>
+          </div>
+        )
+      }else{
+        return (
+          <div>
+          {this.renderBackgroundImagesOnScreen()}
+          {this.renderMenu()}
+          {this.renderFirstFold()}
+          {this.renderIntroText()}
+          {this.renderImagesFold()}
+          {this.renderAbout()}
+          {this.renderSources()}
+          {this.renderNews()}
+          {this.renderImagesFold()}
+          {this.renderWho()}
+          {this.renderAcknowledgments()}
+          {this.renderEmailForm()}
+          </div>
+        )
+      }
   }
 
 }

@@ -20,10 +20,6 @@ class Sources extends React.Component {
     })
   }
 
-  enableTheScrollToView = (index) => {
-    console.log(index);
-  }
-
 
   renderSourcesContent = () => {
     if(!this.props.spreadsheetData){
@@ -35,7 +31,6 @@ class Sources extends React.Component {
 
       return (
         <SourcesComponent
-          enableTheScrollToView={this.enableTheScrollToView}
           triggerIndicator={this.triggerIndicator}
           listCount={spreadSheetData.length}
           ele={ele}
@@ -55,22 +50,12 @@ class Sources extends React.Component {
 
 
   renderIndicator = () => {
-    let style = {
-      position: "fixed",
-      right: "0",
-      top: "0",
-      backgroundColor: "red"
-    }
-
     if(!this.state.isTriggeredIndicator){
       return null;
     }
     return (
-      <div
-      id="test"
-      style={style}
-      >
-        <span>dvdfvfdv</span>
+      <div className="source_indicator">
+        <span>Click to to see more</span>
       </div>
     )
   }

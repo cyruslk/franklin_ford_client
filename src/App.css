@@ -212,17 +212,58 @@ p{
   text-indent: 0 !important;
 }
 
+.metadata_source_component span{
+  display: block;
+  font-family: Favorit-LightMono;
+  font-size: 1vw;
+  text-indent: 1vw !important;
+  overflow-wrap: break-word;
+  text-transform: uppercase;
+}
 
-.loading_screen{
+.pdf_source_component{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
+  align-items: baseline;
 }
 
 
+.pdf_source_component div{
+  width: 50%;
+}
 
+.pdf_source_component span{
+  font-family: plantin;
+  font-size: 1vw;
+  text-transform: uppercase;
+  border-bottom: 1px solid;
+}
+
+.source_container_body section{
+  width: 81vw;
+  background-color: #F5F5F5;
+  border-radius: 20px;
+  padding: 2vw;
+  border: 1px dotted black;
+  margin-top: 3vw;
+}
+
+.metadata_source_component span:first-child,
+.metadata_source_component span:last-child{
+  text-indent: 0 !important;
+}
+
+.loading_screen{
+  margin: 3vw;
+  margin-left: 7.5vw;
+  line-height: 1.6;
+  text-transform: uppercase;
+  font-family: Plantin;
+  font-size: 1.2vw;
+}
+
+.loading_screen span{
+  border-bottom: 1px solid black;
+}
 
 .typed_span,
 .Cursor--blinking{
@@ -248,6 +289,18 @@ p{
   margin-bottom: 1vw;
   font-size: 1.4vw;
   text-transform: uppercase;
+  cursor: pointer;
+}
+
+
+.source_indicator{
+  position: fixed;
+  right: 2vw;
+  top: 2vw;
+  background-color: #F5F5F5;
+  border-radius: 20px;
+  padding: 1vw;
+  border: 1px dotted;
 }
 
 .sticky_container div .last{

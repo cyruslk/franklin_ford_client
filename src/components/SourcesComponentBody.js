@@ -3,46 +3,65 @@ import App from "../App.css";
 
 class SourcesComponentBody extends Component {
 
-
-  componentDidMount(){
-    console.log(this.props);
-  }
-
   renderPDF = () => {
-
     return (
       <a>show PDF</a>
     )
   }
-
-  renderContentLeft = () => {
+  renderContentMetadata = () => {
     let data = this.props;
+    let ele = this.props.ele;
+    console.log(data);
+
     return (
-      <div>
-        <h1>Main info: </h1>
-        <h2>{data.ele.gsx$title.$t}</h2>
-        {this.renderPDF()}
+      <div className="metadata_source_component">
+          <span>&#123;</span>
+          <span>gsx$title: {ele.gsx$title.$t}</span>
+          <span>gsx$authorname: {ele.gsx$authorname.$t}</span>
+          <span>gsx$dateyear: {ele.gsx$dateyear.$t}</span>
+          <span>gsx$fulldateifknown: {ele.gsx$fulldateifknown.$t}</span>
+          <span>gsx$publishedin: {ele.gsx$publishedin.$t}</span>
+          <span>gsx$pages: {ele.gsx$pages.$t}</span>
+          <span>gsx$lieu: {ele.gsx$lieu.$t}</span>
+          <span>gsx$filenamepdf: {ele.gsx$filenamepdf.$t}</span>
+          <span>gsx$filenametxt: {ele.gsx$filenametxt.$t}</span>
+          <span>gsx$notes: {ele.gsx$notes.$t}</span>
+          <span>gsx$manuscrittapuscrit: {ele.gsx$manuscrittapuscrit.$t}</span>
+          <span>gsx$archive: {ele.gsx$archive.$t}</span>
+        <span>&#123;</span>
       </div>
     )
   }
-
-  renderContentRight = () => {
+  renderContentPDF = () => {
     return (
       <div>
-        tweets if there is
+        <div className="pdf_source_component">
+          <div>
+            <span>SEE THE PDF ONLINE</span>
+          </div>
+          <div>
+            <span>SEE THE OCR'ED TEXT ONLINE</span>
+          </div>
+        </div>
       </div>
     )
   }
-
 
   render() {
     if(!this.props){
       return null;
     }
     return (
-      <div>
-        {this.renderContentLeft()}
-        {this.renderContentRight()}
+      <div
+        className="source_container_body"
+        id={this.props.anchorTagBody}
+        style={{display: this.props.display}}>
+          <section>
+            {this.renderContentMetadata()}
+          </section>
+          <section>
+            {this.renderContentPDF()}
+          </section>
       </div>
     );
   }
