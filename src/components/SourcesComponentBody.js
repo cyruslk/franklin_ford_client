@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Tweet } from 'react-twitter-widgets'
 import App from "../App.css";
 
 class SourcesComponentBody extends Component {
@@ -33,6 +34,10 @@ class SourcesComponentBody extends Component {
     )
   }
   renderContentPDF = () => {
+
+    // get the props here
+
+
     return (
       <div>
         <div className="pdf_source_component">
@@ -43,6 +48,25 @@ class SourcesComponentBody extends Component {
             <span>SEE THE OCR'ED TEXT ONLINE</span>
           </div>
         </div>
+      </div>
+    )
+  }
+
+  renderTweetIfAny = () => {
+
+    // to change with real props;
+    let tweetIDProps = ["1226738250389344258", "1226738250389344258"];
+
+    let tweetIdPropsMaped = tweetIDProps.map((ele, index) => {
+      return (
+        <div key={index}>
+          <Tweet tweetId={ele}/>
+        </div>
+      )
+    });
+    return (
+      <div>
+        {tweetIdPropsMaped}
       </div>
     )
   }
@@ -61,6 +85,9 @@ class SourcesComponentBody extends Component {
           </section>
           <section>
             {this.renderContentPDF()}
+          </section>
+          <section>
+            {this.renderTweetIfAny()}
           </section>
       </div>
     );
