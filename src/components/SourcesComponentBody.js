@@ -12,7 +12,6 @@ class SourcesComponentBody extends Component {
   renderContentMetadata = () => {
     let data = this.props;
     let ele = this.props.ele;
-    console.log(data);
 
     return (
       <div className="metadata_source_component">
@@ -33,42 +32,59 @@ class SourcesComponentBody extends Component {
       </div>
     )
   }
+
+
   renderContentPDF = () => {
 
-    // get the props here
-
-
-    return (
-      <div>
-        <div className="pdf_source_component">
-          <div>
-            <span>SEE THE PDF ONLINE</span>
-          </div>
-          <div>
-            <span>SEE THE OCR'ED TEXT ONLINE</span>
+    let ele = this.props.ele;
+    let cloudinaryPDFLink = ele.gsx$pdfoncloudinary.$t;
+    let cloudinaryTxtLink = ele.gsx$txtoncloudinary.$t;
+    let isAllowedOnWebsite = ele.gsx$isallowedonwebsite.$t;
+    if(isAllowedOnWebsite === "TRUE"){
+      return (
+        <section>
+        <div>
+          <div className="pdf_source_component">
+            <div>
+              <a href={cloudinaryPDFLink} target="_blank">
+                <span>SEE THE PDF ONLINE</span>
+              </a>
+            </div>
+            <div>
+              <a href={cloudinaryTxtLink} target="_blank">
+                <span>SEE THE OCR'ED TEXT ONLINE</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    )
+        </section>
+      )
+    }else{
+      return null;
+    }
   }
 
+
+  // change this.
   renderTweetIfAny = () => {
+    let tweetsData = this.props.tweetsData;
+    let tweetsDataLength = tweetsData.length;
+    if(!tweetsData || tweetsDataLength === 0){
+        return null;
+      }else{
+        return this.mapThroughTweets(tweetsData)
+      }
+  }
 
-    // to change with real props;
-    let tweetIDProps = ["1226738250389344258", "1226738250389344258"];
-
-    let tweetIdPropsMaped = tweetIDProps.map((ele, index) => {
+  mapThroughTweets = (listOfTweets) => {
+    // console.log(listOfTweets.length, "length");
+    // console.log(listOfTweets);
+    return listOfTweets.map((ele, index) => {
       return (
-        <div key={index}>
-          <Tweet tweetId={ele}/>
+        <div>
         </div>
       )
-    });
-    return (
-      <div>
-        {tweetIdPropsMaped}
-      </div>
-    )
+    })
   }
 
   render() {
@@ -83,12 +99,8 @@ class SourcesComponentBody extends Component {
           <section>
             {this.renderContentMetadata()}
           </section>
-          <section>
             {this.renderContentPDF()}
-          </section>
-          <section>
             {this.renderTweetIfAny()}
-          </section>
       </div>
     );
   }

@@ -9,28 +9,32 @@ class Sources extends React.Component {
   constructor(props) {
    super(props);
    this.state = {
-    isTriggeredIndicator: false,
+    isHoveredIndicator: false,
+    tweetData: null,
     index: 0
    };
- }
+ };
 
-  triggerIndicator = (bool) => {
+
+  triggerIndicator = (isHoveredIndicator, tweetData) => {
     this.setState({
-      isTriggeredIndicator: bool
+      isHoveredIndicator,
+      tweetData
     })
-  }
+  };
 
 
   renderSourcesContent = () => {
     if(!this.props.spreadsheetData){
       return null;
-    }
+    };
 
     let spreadSheetData = this.props.spreadsheetData;
     let cellSources = spreadSheetData.map((ele, index) => {
 
       return (
         <SourcesComponent
+          dbContent={this.props.dbContent}
           triggerIndicator={this.triggerIndicator}
           listCount={spreadSheetData.length}
           ele={ele}
@@ -45,39 +49,28 @@ class Sources extends React.Component {
         {cellSources}
         </div>
       )
-  }
+  };
 
-
-
-  renderIndicator = () => {
-    if(!this.state.isTriggeredIndicator){
+  renderHoverIndicator = () => {
+    if(!this.state.isHoveredIndicator){
       return null;
-    }
+    };
     return (
       <div className="source_indicator">
         <span>Click to to see more</span>
+        {this.renderHoverTweetData()}
       </div>
     )
-  }
+  };
 
-  renderIndexOfSources = () => {
-
-    if(!this.props.spreadsheetData){
-    return null;
-    }
-
-    let spreadSheetData = this.props.spreadsheetData;
-    let mapThroughPDFTitltes = spreadSheetData
-    .map((ele, index) => {
-      return (
-        <div key={index}>
-          {ele.gsx$title.$t}: 0 Tweets
-        </div>
-      )
-    })
+  renderHoverTweetData = () => {
+    if(!this.state.tweetData){
+      return null;
+    };
+    let countTweets = this.state.tweetData.length;
     return (
-      <div>
-        {mapThroughPDFTitltes}
+      <div className="source_tweet_indicator">
+        <span>Tweeted: {countTweets} times </span>
       </div>
     )
   }
@@ -87,11 +80,11 @@ class Sources extends React.Component {
       <div
         id="sources"
         className="source_container">
-        {this.renderIndicator()}
+        {this.renderHoverIndicator()}
         {this.renderSourcesContent()}
       </div>
     );
-  }
-}
+  };
+};
 
 export default Sources;

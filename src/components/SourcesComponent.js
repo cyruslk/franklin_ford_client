@@ -8,22 +8,38 @@ class SourcesConponent extends Component {
     super();
     this.state = {
       canBeToggled: false,
+      title: null,
       toggled: false,
       sourceId: null,
-      anchorTag: null
+      anchorTag: null,
+      tweetsData: null
     }
   }
 
   componentDidMount(){
-    if(this.props.ele){
+    if(this.props.ele && this.props.dbContent){
 
       let ele = this.props.ele;
-      let titleFormatted = ele.gsx$title.$t;
-      let anchorTag = this.cleaningTheAnchorTag(titleFormatted);
+      let title = ele.gsx$title.$t;
+      let anchorTag = this.cleaningTheAnchorTag(title);
       this.setState({
+        title,
         anchorTag
+      }, () => {
+        let dbContent = this.props.dbContent;
+        return this.filterThroughDBToFindTweets(dbContent);
       })
-    }
+    };
+  }
+
+  filterThroughDBToFindTweets = (dbContent) => {
+    let title = this.state.title;
+    let filtering =  dbContent.filter((ele) => {
+      return ele.entry.selectedItem.source_title === title
+    })
+    this.setState({
+      tweetsData: filtering
+    })
   }
 
   cleaningTheAnchorTag = (stringToClean) => {
@@ -46,7 +62,7 @@ class SourcesConponent extends Component {
   }
 
   triggerIndicator = (bool) => {
-    this.props.triggerIndicator(bool)
+    this.props.triggerIndicator(bool, this.state.tweetsData)
   }
 
   renderCell = () => {
@@ -97,30 +113,39 @@ class SourcesConponent extends Component {
         return (
           <div>
             <SourcesComponentBody
-            display={"block"}
-            anchorTagBody={anchorTagBody}
-            {...this.props}/>
+              display={"block"}
+              anchorTagBody={anchorTagBody}
+              tweetsData={this.state.tweetsData}
+              {...this.props}
+             />
           </div>
         )
       }else{
         return (
           <div>
             <SourcesComponentBody
-            display={"none"}
-            anchorTagBody={anchorTagBody}
-            {...this.props}/>
+              display={"none"}
+              anchorTagBody={anchorTagBody}
+              tweetsData={this.state.tweetsData}
+              {...this.props}
+            />
           </div>
         )
       }
     }
   }
+
   render() {
-    return (
-      <div className="sources_container_main_container">
-        {this.renderCell()}
-        {this.renderBody()}
-      </div>
-    );
+    if(!this.state.tweetsData){
+      return "loading"
+    }else{
+      return (
+        <div className="sources_container_main_container">
+          {this.renderCell()}
+          {this.renderBody()}
+        </div>
+      );
+    }
   }
 }
 

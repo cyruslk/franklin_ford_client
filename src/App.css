@@ -303,6 +303,25 @@ p{
   border: 1px dotted;
 }
 
+.source_indicator span{
+  text-transform: uppercase;
+}
+
+
+.source_tweet_indicator{
+  position: fixed;
+  left: 2vw;
+  top: 2vw;
+  background-color: #F5F5F5;
+  border-radius: 20px;
+  padding: 1vw;
+  border: 1px dotted;
+}
+
+.source_tweet_indicator span{
+  text-transform: uppercase;
+}
+
 .sticky_container div .last{
   border-bottom: none;
 }

@@ -3,6 +3,14 @@ import ReactContactForm from 'react-mail-form';
 import axios from "axios";
 import _ from "lodash";
 import { HashLink as Link } from 'react-router-hash-link';
+
+import {
+  Stitch,
+  AnonymousCredential,
+  RemoteMongoClient
+} from "mongodb-stitch-browser-sdk";
+
+
 import App from "./App.css";
 import About from "./components//About.js";
 import News from "./components//News.js";
@@ -23,6 +31,7 @@ class Home extends React.Component {
     this.state = {
       menu: ["about", "sources", "news", "acknowledgments", "contact"],
       mockDataTweets: _.reverse(mock_data_tweets),
+      dbContent: null,
       tweetSamples: null,
       spreadsheetData: null,
       typistIndex: 0,
@@ -38,8 +47,16 @@ class Home extends React.Component {
   }
 
   componentDidMount(){
+    window.addEventListener('scroll', this.listenToScroll);
+    // Initialize the App Client
+    this.client = Stitch.initializeDefaultAppClient("ford_entries-rjcyp");
+    const mongodb = this.client.getServiceClient(
+      RemoteMongoClient.factory,
+      "mongodb-atlas"
+    );
+    this.db = mongodb.db("franklin-ford-database");
+    this.retrieveDataFromDBOnLoad();
 
-    window.addEventListener('scroll', this.listenToScroll)
 
     let spreadsheetAPI = config.preFix + config.sheetID + config.postFix;
     axios.get(spreadsheetAPI)
@@ -50,6 +67,7 @@ class Home extends React.Component {
       }).catch((err) => {
       console.log(err);
     });
+
 
     //call the cms routes here
     fetch("https://franklin-ford-cms.herokuapp.com/abouts")
@@ -112,8 +130,31 @@ class Home extends React.Component {
           news: data
         })
     });
+
+
     this.makeDivVisible();
+
   };
+
+  retrieveDataFromDBOnLoad = () => {
+  // Anonymously log in and display comments on load
+    this.client.auth
+      .loginWithCredential(new AnonymousCredential())
+      .then(this.retrieveDataFromDB)
+      .catch(console.error);
+  }
+
+
+  retrieveDataFromDB = () => {
+     // query the remote DB and update the component state
+     this.db
+       .collection("ford_twitter")
+       .find({}, { limit: 1000 })
+       .asArray()
+       .then(dbContent => {
+         this.setState({dbContent});
+       });
+    }
 
   makeDivVisible = () => {
     window.location.hash = window.decodeURIComponent(window.location.hash);
@@ -349,6 +390,9 @@ renderFirstFold = () => {
 }
 
 renderSources = () => {
+  if(!this.state.dbContent){
+    return null;
+  }
   return (
     <Sources
     {...this.state}

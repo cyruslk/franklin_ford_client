@@ -9,9 +9,7 @@ class Who extends React.Component {
     if(!this.props.who){
       return null
     }
-    console.log(this.props.who);
 
-    
     let data = this.props.mockDataCms[1].who
     let mapedData = data.map((ele, index) => {
       return (
