@@ -14,6 +14,8 @@ class SourcesComponentBody extends Component {
     let ele = this.props.ele;
 
     return (
+      <section>
+      <h1>Metadata of the source</h1>
       <div className="metadata_source_component">
           <span>&#123;</span>
           <span>gsx$title: {ele.gsx$title.$t}</span>
@@ -30,6 +32,7 @@ class SourcesComponentBody extends Component {
           <span>gsx$archive: {ele.gsx$archive.$t}</span>
         <span>&#123;</span>
       </div>
+      </section>
     )
   }
 
@@ -43,6 +46,7 @@ class SourcesComponentBody extends Component {
     if(isAllowedOnWebsite === "TRUE"){
       return (
         <section>
+        <h1>Original files of the source</h1>
         <div>
           <div className="pdf_source_component">
             <div>
@@ -77,14 +81,22 @@ class SourcesComponentBody extends Component {
   }
 
   mapThroughTweets = (listOfTweets) => {
-    // console.log(listOfTweets.length, "length");
-    // console.log(listOfTweets);
-    return listOfTweets.map((ele, index) => {
+    let listOfTweetsMaped = listOfTweets.map((ele, index) => {
+      let tweetURL = `https://twitter.com/franklinfordbot/status/${ele.entry.dataOfTheTweet.twitter_id_str}`
       return (
-        <div>
+        <div className="tweet_maped" key={index}>
+          <a href={tweetURL} target="_blank">
+             <span>{ele.entry.dataOfTheTweet.twitter_text}</span>
+          </a>
         </div>
       )
     })
+    return (
+      <section>
+        <h1>Tweets created from the source</h1>
+        {listOfTweetsMaped}
+      </section>
+    )
   }
 
   render() {
@@ -96,11 +108,9 @@ class SourcesComponentBody extends Component {
         className="source_container_body"
         id={this.props.anchorTagBody}
         style={{display: this.props.display}}>
-          <section>
-            {this.renderContentMetadata()}
-          </section>
-            {this.renderContentPDF()}
-            {this.renderTweetIfAny()}
+        {this.renderContentMetadata()}
+        {this.renderContentPDF()}
+        {this.renderTweetIfAny()}
       </div>
     );
   }

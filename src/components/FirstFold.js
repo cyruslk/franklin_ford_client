@@ -12,6 +12,7 @@ class FirstFold extends React.Component {
    this.state = {
      tweetsArray: null,
      counter: 0,
+     counterReset: null,
      overflow: "hidden"
    };
  }
@@ -20,20 +21,25 @@ class FirstFold extends React.Component {
    if(!this.props.mockDataTweets){
      return "loading"
    }else{
-     let formattedData = this.props.mockDataTweets
-       .map((ele, index) => ({
-          index,
-          tweet: ele.randomString,
-          sourceMetadata: ele.sourceData,
-          twitterMetadata: ele.twitterData,
-          visible: index === this.state.counter,
-          animation: index === this.state.counter
-       }))
-
-     this.setState({
-       tweetsArray: formattedData
-     })
+     return this.makeFormattedData()
    }
+ }
+
+
+ makeFormattedData = () => {
+   let formattedData = this.props.mockDataTweets
+     .map((ele, index) => ({
+        index,
+        tweet: ele.randomString,
+        sourceMetadata: ele.sourceData,
+        twitterMetadata: ele.twitterData,
+        visible: index === this.state.counter,
+        animation: index === this.state.counter
+     }))
+   this.setState({
+     tweetsArray: formattedData,
+     counterReset: this.props.mockDataTweets.length
+   })
  }
 
 
@@ -42,7 +48,6 @@ class FirstFold extends React.Component {
    this.updateScrollOnDivs()
  }
 
- // add a _.debounce() to toggle between overflow:hidden and overflow:scroll
 
 
  updateScrollOnDivs = () => {
@@ -122,6 +127,7 @@ renderFirstFoldTweets = () => {
 };
 
   render(){
+    console.log(this.state);
     return (
       <div>
       <main className="first_fold_container">

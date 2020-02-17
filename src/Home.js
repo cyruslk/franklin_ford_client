@@ -19,18 +19,22 @@ import FirstImageFold from "./components//FirstImageFold.js";
 import SourcesComponent from "./components//SourcesComponent.js"
 import Sources from "./components//Sources.js";
 import Who from "./components//Who.js";
+
 var parse = require('html-react-parser');
 var scrollToElement = require('scroll-to-element');
 var config = require('./config.js');
 const mock_data_tweets = require("./mock_data/mock_data_tweets.js");
-const mock_data_imgs = require("./mock_data/mock_data_imgs.js");
+const mock_data_background_imgs = require("./mock_data/mock_data_background_imgs.js");
+const mock_data_fold_imgs = require("./mock_data/mock_data_fold_imgs.js");
+
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       menu: ["about", "sources", "news", "acknowledgments", "contact"],
-      mockDataTweets: _.reverse(mock_data_tweets),
+      mockDataTweets: _.shuffle(mock_data_tweets),
+      mockDataImages: _.shuffle(mock_data_fold_imgs),
       dbContent: null,
       tweetSamples: null,
       spreadsheetData: null,
@@ -386,8 +390,10 @@ renderBackgroundImagesOnScreen = () =>  {
 }
 
 renderFirstFold = () => {
-  return <FirstFold {...this.state} />
-}
+  return <FirstFold
+            {...this.state}
+          />
+};
 
 renderSources = () => {
   if(!this.state.dbContent){
@@ -416,7 +422,9 @@ renderNews = () => {
 renderEmailForm = () => {
   return (
     <div>
-      <div className="main_container">
+      <div
+      id="main_containter_contact"
+      className="main_container">
         <div id="contact" className="contact_container">
           <ReactContactForm
             className="email_form"
@@ -482,7 +490,16 @@ renderAcknowledgments = () => {
       </div>
     </div>
   )
-}
+};
+
+renderLargeImage = () => {
+  return (
+    <div className="large_image_section">
+      <img src="https://res.cloudinary.com/dvtjd0zw1/image/upload/v1581969521/website_add/2_1904_1908_Ford-Canfield-39_qbamyx.jpg" />
+    </div>
+  )
+};
+
   render(){
       if(this.state.loadingScreen){
         return (
@@ -497,7 +514,7 @@ renderAcknowledgments = () => {
           {this.renderMenu()}
           {this.renderFirstFold()}
           {this.renderIntroText()}
-          {this.renderImagesFold()}
+          {this.renderLargeImage()}
           {this.renderAbout()}
           {this.renderSources()}
           {this.renderNews()}

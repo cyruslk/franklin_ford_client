@@ -10,19 +10,28 @@ class Sources extends React.Component {
    super(props);
    this.state = {
     isHoveredIndicator: false,
+    isToggledSection: false,
     tweetData: null,
     index: 0
    };
  };
 
 
-  triggerIndicator = (isHoveredIndicator, tweetData) => {
+  triggerOnMouseOver = (isHoveredIndicator, tweetData) => {
     this.setState({
       isHoveredIndicator,
       tweetData
     })
   };
 
+
+  isToggledSection = (bool) => {
+    this.setState({
+      isToggledSection: bool
+    }, () => {
+      console.log(this.state.isToggledSection);
+    })
+  }
 
   renderSourcesContent = () => {
     if(!this.props.spreadsheetData){
@@ -35,7 +44,8 @@ class Sources extends React.Component {
       return (
         <SourcesComponent
           dbContent={this.props.dbContent}
-          triggerIndicator={this.triggerIndicator}
+          isToggledSection={this.isToggledSection}
+          triggerOnMouseOver={this.triggerOnMouseOver}
           listCount={spreadSheetData.length}
           ele={ele}
           index={index}
@@ -57,11 +67,19 @@ class Sources extends React.Component {
     };
     return (
       <div className="source_indicator">
-        <span>Click to to see more</span>
+        {this.toggleIndicator()}
         {this.renderHoverTweetData()}
       </div>
     )
   };
+
+  toggleIndicator = () => {
+    if(!this.state.isToggledSection){
+      return <span>click to open</span>
+    }else{
+      return <span>click to close</span>
+    }
+  }
 
   renderHoverTweetData = () => {
     if(!this.state.tweetData){

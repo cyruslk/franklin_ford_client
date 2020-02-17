@@ -58,12 +58,31 @@ class SourcesConponent extends Component {
   toggleContent = () => {
     this.setState({
       toggled: !this.state.toggled
+    }, () => {
+      return this.props.isToggledSection(this.state.toggled)
     })
   }
 
-  triggerIndicator = (bool) => {
-    this.props.triggerIndicator(bool, this.state.tweetsData)
+  triggerOnMouseOver = (bool) => {
+    this.props.triggerOnMouseOver(bool, this.state.tweetsData)
   }
+
+  renderStyle = () => {
+    if(this.state.toggled){
+      return (
+        {
+          borderBottom: "none"
+        }
+      )
+    }else{
+      return (
+        {
+          borderBottom: "1px dotted #F5F5F5"
+        }
+      )
+    }
+  }
+
 
   renderCell = () => {
     if(!this.props.ele && !this.state.anchorTag){
@@ -74,11 +93,13 @@ class SourcesConponent extends Component {
     return(
       <div
       id={this.state.anchorTag}
-      onMouseEnter={() => this.triggerIndicator(true)}
-      onMouseLeave={() => this.triggerIndicator(false)}
+      onMouseEnter={() => this.triggerOnMouseOver(true)}
+      onMouseLeave={() => this.triggerOnMouseOver(false)}
       onClick={this.toggleContent}
       className="sources_container_main">
-      <div key={index} className="sources_cell_container">
+      <div key={index}
+        style={this.renderStyle()}
+        className="sources_cell_container">
         <div className="sources_cell_container_first">
           <div className="year">
             <span>{ele.gsx$dateyear.$t}</span>
