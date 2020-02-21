@@ -127,7 +127,6 @@ renderFirstFoldTweets = () => {
 };
 
   render(){
-    console.log(this.state);
     return (
       <div>
       <main className="first_fold_container">

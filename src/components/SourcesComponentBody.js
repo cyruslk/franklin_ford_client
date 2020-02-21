@@ -42,18 +42,15 @@ class SourcesComponentBody extends Component {
     let ele = this.props.ele;
     let cloudinaryPDFLink = ele.gsx$pdfoncloudinary.$t;
     let cloudinaryTxtLink = ele.gsx$txtoncloudinary.$t;
-    let isAllowedOnWebsite = ele.gsx$isallowedonwebsite.$t;
+    let isAllowedOnWebsite = ele.gsx$showsourcefilesonwebsite.$t;
+
     if(isAllowedOnWebsite === "TRUE"){
       return (
         <section>
         <h1>Original files of the source</h1>
         <div>
           <div className="pdf_source_component">
-            <div>
-              <a href={cloudinaryPDFLink} target="_blank">
-                <span>SEE THE PDF ONLINE</span>
-              </a>
-            </div>
+              {this.renderPDF(ele)}
             <div>
               <a href={cloudinaryTxtLink} target="_blank">
                 <span>SEE THE OCR'ED TEXT ONLINE</span>
@@ -65,6 +62,23 @@ class SourcesComponentBody extends Component {
       )
     }else{
       return null;
+    }
+  }
+
+  renderPDF = (ele) => {
+    let cloudinaryPDFLink = ele.gsx$pdfoncloudinary.$t;
+    let isAllowedOnWebsite = ele.gsx$showonlytxtonwebsite.$t;
+
+    if(isAllowedOnWebsite === "TRUE"){
+      return null
+    }else{
+      return (
+        <div>
+          <a href={cloudinaryPDFLink} target="_blank">
+            <span>SEE THE PDF ONLINE</span>
+          </a>
+        </div>
+      )
     }
   }
 
