@@ -15,24 +15,27 @@ import App from "./App.css";
 import About from "./components//About.js";
 import News from "./components//News.js";
 import FirstFold from "./components//FirstFold.js";
-import FirstImageFold from "./components//FirstImageFold.js";
-import SourcesComponent from "./components//SourcesComponent.js"
-import Sources from "./components//Sources.js";
-import Who from "./components//Who.js";
+import FirstImageFold from "./components/FirstImageFold.js";
+import SourcesComponent from "./components/SourcesComponent.js"
+import Sources from "./components/Sources.js";
+import Who from "./components/Who.js";
+import MenuLink from "./components/MenuLink.js";
 
 var parse = require('html-react-parser');
 var scrollToElement = require('scroll-to-element');
 var config = require('./config.js');
-const mock_data_tweets = require("./mock_data/mock_data_tweets.js");
-const mock_data_background_imgs = require("./mock_data/mock_data_background_imgs.js");
-const mock_data_fold_imgs = require("./mock_data/mock_data_fold_imgs.js");
+
+const menu_links =  require("./static_and_mock_data/menu_links.js")
+const mock_data_tweets = require("./static_and_mock_data/mock_data_tweets.js");
+const mock_data_background_imgs = require("./static_and_mock_data/mock_data_background_imgs.js");
+const mock_data_fold_imgs = require("./static_and_mock_data/mock_data_fold_imgs.js");
 
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      menu: ["about", "sources", "news", "acknowledgments", "contact"],
+      menuLinks: menu_links,
       mockDataTweets: _.shuffle(mock_data_tweets),
       mockDataImages: _.shuffle(mock_data_fold_imgs),
       dbContent: null,
@@ -71,8 +74,6 @@ class Home extends React.Component {
       }).catch((err) => {
       console.log(err);
     });
-
-
     //call the cms routes here
     fetch("https://franklin-ford-cms.herokuapp.com/abouts")
       .then((response) => {
@@ -83,7 +84,6 @@ class Home extends React.Component {
           about: data
         })
     });
-
     fetch("https://franklin-ford-cms.herokuapp.com/whos")
       .then((response) => {
         return response.json()
@@ -93,8 +93,6 @@ class Home extends React.Component {
           whos: data
         })
     });
-
-
     fetch("https://franklin-ford-cms.herokuapp.com/mains")
       .then((response) => {
         return response.json()
@@ -104,7 +102,6 @@ class Home extends React.Component {
           intro: data
         })
     });
-
     fetch("https://franklin-ford-cms.herokuapp.com/tweetsamples")
       .then((response) => {
         return response.json()
@@ -114,7 +111,6 @@ class Home extends React.Component {
           tweetSamples: data
         })
     });
-
     fetch("https://franklin-ford-cms.herokuapp.com/acknowledgments")
       .then((response) => {
         return response.json()
@@ -124,7 +120,6 @@ class Home extends React.Component {
           acknowledgments: data
         })
     });
-
     fetch("https://franklin-ford-cms.herokuapp.com/news")
       .then((response) => {
         return response.json()
@@ -134,10 +129,7 @@ class Home extends React.Component {
           news: data
         })
     });
-
-
     this.makeDivVisible();
-
   };
 
   retrieveDataFromDBOnLoad = () => {
@@ -191,24 +183,31 @@ class Home extends React.Component {
     })
   }
 
-
   reloadThePage = () => {
     window.scroll(0,0)
     window.location.reload()
   }
 
 
+generateMenuLinks = () => {
+  if(!this.state.menuLinks){
+    return "loading"
+  }
+  let menuLinks = this.state.menuLinks;
+  console.log(menuLinks);
+  let menuLinksMaped = menuLinks
+  .map((ele, index) => {
+    return <MenuLink key={index} pathname={ele.pathname} span={ele.span} />
+  })
+  return menuLinksMaped;
+}
+
 renderMenu = () => {
   return (
     <div className="sticky_container">
         <div>
             <span onClick={this.reloadThePage} className="first">@FranklinFordBot</span>
-            <Link smooth to={`${window.location.pathname}#about`}><span>1. About</span></Link>
-            <Link smooth to={`${window.location.pathname}#sources`}><span>2. Sources</span></Link>
-            <Link smooth to={`${window.location.pathname}#news`}><span>3. News</span></Link>
-            <Link smooth to={`${window.location.pathname}#who`}><span>4. Who</span></Link>
-            <Link smooth to={`${window.location.pathname}#acknowledgments`}><span>5. Acknowledgments</span></Link>
-            <Link smooth to={`${window.location.pathname}#contact`}><span className="last">6. Contact</span></Link>
+            {this.generateMenuLinks()}
         </div>
     </div>
   )
@@ -239,7 +238,6 @@ renderIntroText = () => {
 
 
 // will optimze this
-
 renderBackgroundImagesGroup1 = () => {
   if(this.state.windowScroll > 3000
     && this.state.windowScroll < 6000){
