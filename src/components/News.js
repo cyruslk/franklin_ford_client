@@ -12,9 +12,7 @@ class News extends React.Component {
 
     let newsMaped = this.props.news
     .map((ele, index) => {
-
       let parsedText = parse(ele.Body_text)
-
       return (
         <div>
           <div className="about_container_main">

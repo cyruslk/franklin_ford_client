@@ -3,6 +3,8 @@ import ReactContactForm from 'react-mail-form';
 import axios from "axios";
 import _ from "lodash";
 import { HashLink as Link } from 'react-router-hash-link';
+import TrackVisibility from 'react-on-screen';
+import $ from "jquery";
 
 import {
   Stitch,
@@ -13,6 +15,7 @@ import {
 
 import App from "./App.css";
 import About from "./components//About.js";
+import BotComponent from "./components/BotComponent.js";
 import News from "./components//News.js";
 import FirstFold from "./components//FirstFold.js";
 import FirstImageFold from "./components/FirstImageFold.js";
@@ -35,9 +38,10 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      menuLinks: menu_links,
+      sectionsData: menu_links,
       mockDataTweets: _.shuffle(mock_data_tweets),
       mockDataImages: _.shuffle(mock_data_fold_imgs),
+      triggerViewPortData: null,
       dbContent: null,
       tweetSamples: null,
       spreadsheetData: null,
@@ -49,13 +53,14 @@ class Home extends React.Component {
       windowScroll: 0,
       scrolled: 0,
       targetedSource: null,
-      loadingScreen: false
+      loadingScreen: false,
+      triggerTheBot: false
     };
   }
 
   componentDidMount(){
+
     window.addEventListener('scroll', this.listenToScroll);
-    // Initialize the App Client
     this.client = Stitch.initializeDefaultAppClient("ford_entries-rjcyp");
     const mongodb = this.client.getServiceClient(
       RemoteMongoClient.factory,
@@ -132,6 +137,7 @@ class Home extends React.Component {
     this.makeDivVisible();
   };
 
+
   retrieveDataFromDBOnLoad = () => {
   // Anonymously log in and display comments on load
     this.client.auth
@@ -164,6 +170,7 @@ class Home extends React.Component {
           loadingScreen:false
         })
         window.location.hash = window.decodeURIComponent(window.location.hash);
+        console.log(window.location.hash);
         document.querySelector(`${window.location.hash}`).scrollIntoView();
         document.querySelector(`${window.location.hash}_body`).style.display = "block";
       }, 2000);
@@ -172,42 +179,55 @@ class Home extends React.Component {
     }
   }
 
-
   listenToScroll = () => {
     const windowScroll = document.body.scrollTop || document.documentElement.scrollTop
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = windowScroll / height;
     this.setState({
       windowScroll,
       scrolled
     })
-  }
+  };
 
-  reloadThePage = () => {
-    window.scroll(0,0)
-    window.location.reload()
-  }
+reloadThePage = () => {
+  window.scroll(0,0)
+  window.location.reload()
+}
 
-
-generateMenuLinks = () => {
-  if(!this.state.menuLinks){
+generatesectionsData = () => {
+  if(!this.state.sectionsData
+    && !this.state.windowScroll){
     return "loading"
   }
-  let menuLinks = this.state.menuLinks;
-  console.log(menuLinks);
-  let menuLinksMaped = menuLinks
+  let sectionsData = this.state.sectionsData;
+  let sectionsDataMaped = sectionsData
   .map((ele, index) => {
-    return <MenuLink key={index} pathname={ele.pathname} span={ele.span} />
+    return (
+      <MenuLink
+        setActiveLink={this.setActiveLink}
+        key={index}
+        index={index}
+        triggerLastSection={this.state.scrolled}
+        windowScroll={this.state.windowScroll}
+        triggerViewPortData={this.state.triggerViewPortData[index]}
+        unTriggerViewPortData={this.state.triggerViewPortData[index+1]}
+        pathname={ele.pathname}
+        span={ele.span}
+      />
+    )
   })
-  return menuLinksMaped;
+  return sectionsDataMaped;
 }
 
 renderMenu = () => {
+  if(!this.state.triggerViewPortData){
+    return null;
+  }
   return (
     <div className="sticky_container">
         <div>
             <span onClick={this.reloadThePage} className="first">@FranklinFordBot</span>
-            {this.generateMenuLinks()}
+            {this.generatesectionsData()}
         </div>
     </div>
   )
@@ -463,7 +483,44 @@ renderWho = () => {
       </div>
     </div>
   )
+};
+
+
+renderBotIcon = () => {
+  return (
+    <div className="bot_icon">
+      <span onClick={this.triggerTheBot}>talk to the bot?</span>
+    </div>
+  )
+};
+
+// to change eventually?
+triggerTheBot = () => {
+  if(!this.state.triggerTheBot){
+    this.setState({
+      triggerTheBot: true
+    })
+  }else{
+    this.setState({
+      triggerTheBot: false
+    })
+  }
+};
+
+closeChatBot = () => {
+  this.setState({
+    triggerTheBot: false
+  })
 }
+
+
+
+renderBotComponent = () => {
+  if(!this.state.triggerTheBot){ return null; }
+  return (
+    <BotComponent closeChatBot={this.closeChatBot}/>
+  )
+};
 
 renderAcknowledgments = () => {
 
@@ -507,19 +564,21 @@ renderLargeImage = () => {
         )
       }else{
         return (
-          <div>
-          {this.renderBackgroundImagesOnScreen()}
-          {this.renderMenu()}
-          {this.renderFirstFold()}
-          {this.renderIntroText()}
-          {this.renderLargeImage()}
-          {this.renderAbout()}
-          {this.renderSources()}
-          {this.renderNews()}
-          {this.renderImagesFold()}
-          {this.renderWho()}
-          {this.renderAcknowledgments()}
-          {this.renderEmailForm()}
+          <div className="main_wrapper">
+            {this.renderBotIcon()}
+            {this.renderBotComponent()}
+            {this.renderBackgroundImagesOnScreen()}
+            {this.renderMenu()}
+            {this.renderFirstFold()}
+            {this.renderIntroText()}
+            {this.renderLargeImage()}
+            {this.renderAbout()}
+            {this.renderSources()}
+            {this.renderNews()}
+            {this.renderImagesFold()}
+            {this.renderWho()}
+            {this.renderAcknowledgments()}
+            {this.renderEmailForm()}
           </div>
         )
       }

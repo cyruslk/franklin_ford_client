@@ -91,9 +91,10 @@ p{
 
 
 .about_container_main span{
-  font-family: arial narrow;
+  font-family: plantin;
   font-size: 1vw;
   margin-bottom: 3vw;
+  display: none;
 }
 
 .about_container a{
@@ -101,6 +102,43 @@ p{
 }
 .news_container a{
   border-bottom: 1px dotted;
+}
+
+
+.bot_input_question_section{
+  border-bottom: 1px solid;
+  width: 100%;
+  padding-bottom: 1vw;
+}
+
+.bot_input_prediction_section{
+  padding-top: 1vw;
+}
+
+.bot_input_prediction_section p{
+  font-family: Plantin;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+textarea,input{
+  -webkit-appearance: none;
+  border-color: none;
+}
+
+.bot_input_question_section input{
+  height: 2vw;
+  border-radius: 5px;
+  padding: 0.2vw;
+}
+
+.bot_input_question_section button{
+  width: 50%;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  background-color: none;
 }
 
 
@@ -207,7 +245,7 @@ p{
 
 .metadata_first_fold span{
   display: block;
-  font-family: arial narrow;
+  font-family: plantin;
   font-size: 1.2vw;
   text-indent: 0.3vw !important;
   overflow-wrap: break-word;
@@ -220,7 +258,7 @@ p{
 
 .metadata_source_component span{
   display: block;
-  font-family: arial narrow;
+  font-family: plantin;
   font-size: 1.1vw;
   text-indent: 1vw !important;
   overflow-wrap: break-word;
@@ -239,19 +277,23 @@ p{
 }
 
 .pdf_source_component span{
-  font-family: arial narrow;
+  font-family: plantin;
   font-size: 1.1vw;
   text-transform: uppercase;
   color: black;
   padding: 1vw;
   border-radius: 10px;
   border: 1px dotted black;
+  font-weight: bolder;
 }
 
+.tweet_maped{
+  margin-bottom: 1vw;
+}
 
 .tweet_maped span{
-  font-family: arial narrow;
-    font-size: 1.2vw;
+  font-family: plantin;
+    font-size: 1.4vw;
     color: black;
 }
 
@@ -311,7 +353,7 @@ p{
 }
 
 .sticky_container div .first{
-  font-family: arial narrow;
+  font-family: plantin;
   text-transform: inherit;
   border-bottom: none;
   margin-bottom: 1vw;
@@ -333,7 +375,8 @@ p{
 
 .source_indicator span{
   text-transform: uppercase;
-  font-family: arial narrow;
+  font-family: plantin;
+  font-weight: lighter;
 }
 
 
@@ -348,7 +391,7 @@ p{
 }
 
 .source_tweet_indicator span{
-  text-transform: uppercase;
+  font-weight: lighter;
 }
 
 .sticky_container div .last{
@@ -361,7 +404,6 @@ p{
   border-bottom: 1px dotted;
   padding-bottom: 0.7vw;
   padding-top: 0.7vw;
-  text-transform: uppercase;
   font-family: Plantin;
   font-size: 1.2vw;
 }
@@ -473,7 +515,7 @@ ul{
   position: absolute;
   bottom: 3vw;
   margin: 0;
-  font-family: arial narrow;
+  font-family: plantin;
   font-size: 1vw;
   text-align: center;
   text-transform: uppercase;
@@ -486,7 +528,7 @@ ul{
 }
 
 sup {
-  font-family: arial narrow;
+  font-family: plantin;
   font-size: 1vw;
   font-weight: 600;
 }
@@ -501,9 +543,8 @@ sup {
 }
 
 .sources_cell_container span{
-  text-transform: uppercase;
   font-family: Plantin;
-  font-size: 1.2vw;
+  font-size: 1.4vw;
   color: #F5F5F5;
 }
 
@@ -894,6 +935,7 @@ sup {
   font-size: 2.7vw;
   width: 65vw;
   text-align: center;
+  font-weight: lighter;
 }
 
 .about_container p,
@@ -979,6 +1021,64 @@ sup {
 .acknowledgments_container section:last-child{
   margin-bottom: 0;
 }
+
+.bot_component_container{
+  position: fixed;
+  height: 30vw;
+  padding: 1vw;
+  width: 25vw;
+  bottom: 0;
+  right: 0;
+  box-shadow: -1px 0px 4px 2px #e4e4e4;
+  margin: 2vw;
+  background-color: #F5F5F5;
+  border-radius: 20px;
+  z-index: 10000;
+  padding-top: 1vw;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.bot_component_container div{
+  display: flex;
+  flex-direction: column;
+}
+
+.bot_component_container span{
+  margin: 0.5vw;
+  margin-left: 1vw;
+  margin-bottom: 0;
+  background-color: black;
+  color: #F5F5F5;
+  padding: 1vw;
+  font-size: 1vw;
+  border-radius: 20px;
+  font-family: plantin;
+}
+
+.bot_component_container span a{
+  color: #F5F5F5;
+}
+
+.bot_icon{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 3vw;
+}
+
+.bot_icon span{
+  font-family: plantin;
+  text-transform: uppercase;
+  font-weight: 100;
+  color: #F5F5F5;
+  padding: 1vw;
+  border-radius: 20px;
+  background-color: black;
+}
+
 
 .who_container section h1,
 .acknowledgments_container section h1{

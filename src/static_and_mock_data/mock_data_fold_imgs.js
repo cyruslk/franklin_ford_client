@@ -9,8 +9,8 @@ const mock_data_fold_imgs = {
       txt: "1914_LETTER_FOXWELL_AND_1910_DUPLICATE_<br/>THE_PUBLIC_NECESSITY.PDF"
     },
     {
-      img: "https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579135274/franklin_ford/2_1882_Ford---Tontine-What-It-Is-How-It-Works-1.jpg",
-      txt: "01. FVDFV"
+      img: "https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1582916376/franklin_ford/1899_Ford---From-Gold-Coin-to-Bank-Check-1.jpg",
+      txt: "1899_Ford--From-Gold-Coin-to-Bank-Check-1.PDF"
     },
     {
       img: "https://res.cloudinary.com/www-c-t-l-k-com/image/upload/v1579170346/franklin_ford/1914_Letter_Foxwell_AND_1910_Duplicate_-The_Public_Necessity-2.jpg",

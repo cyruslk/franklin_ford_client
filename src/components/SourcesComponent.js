@@ -48,6 +48,10 @@ class SourcesConponent extends Component {
      .map((ele, index) => {
        if(ele === " "){
          return "-"
+       }if(ele === ","){
+         return;
+       }if(ele === "'"){
+         return; 
        }else{
          return ele;
        }

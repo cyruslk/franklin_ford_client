@@ -28,8 +28,6 @@ class Sources extends React.Component {
   isToggledSection = (bool) => {
     this.setState({
       isToggledSection: bool
-    }, () => {
-      console.log(this.state.isToggledSection);
     })
   }
 
