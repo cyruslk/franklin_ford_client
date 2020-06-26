@@ -45,8 +45,7 @@ class BotComponentInput extends React.Component {
 
    renderInputQuestion = () => {
      return (
-       <div className="bot_input_question_section">
-
+       <div>
           <input
             value={this.state.userInput}
             onChange={this.handleChange}
@@ -55,7 +54,6 @@ class BotComponentInput extends React.Component {
             <button onClick={this.sendDataToServer}>
               send here
             </button>
-
        </div>
      );
    };
@@ -74,7 +72,7 @@ class BotComponentInput extends React.Component {
   render() {
 
     return (
-      <div className="bot_component_container">
+      <div className="bot_input_question_section">
         {this.handleCloseChatBot()}
         {this.renderInputQuestion()}
       </div>

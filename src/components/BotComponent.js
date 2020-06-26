@@ -21,12 +21,18 @@ class BotComponent extends React.Component {
 
   renderBotPrediction = () => {
     if(!this.state.displayPrediction){
-      return "loading"
+      return (
+        <div className="bot_input_prediction_section">
+          loading
+        </div>
+      )
     }
     return (
-      <div style={{position: "fixed", top: "2vw", backgroundColor: "red"}}>{this.state.displayPrediction}</div>
+      <div className="bot_input_prediction_section">
+        {this.state.displayPrediction}
+      </div>
     )
-  };
+   };
 
   renderBotInputComponent = () => {
     return (
@@ -39,7 +45,7 @@ class BotComponent extends React.Component {
 
   render(){
     return(
-      <div>
+      <div className="bot_component_container">
         {this.renderBotInputComponent()}
         {this.renderBotPrediction()}
       </div>
