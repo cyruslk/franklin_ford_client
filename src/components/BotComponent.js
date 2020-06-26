@@ -1,18 +1,42 @@
 import React from 'react';
 import ReactInterval from 'react-interval';
 import { HashLink as Link } from 'react-router-hash-link';
-import BotComponentSpan from "./BotComponentSpan"
+import BotComponentSpan from "./BotComponentSpan";
+import BotComponentBody from "./BotComponentBody";
 import App from "../App.css";
 
 
 class BotComponent extends React.Component {
+
+  ws = new WebSocket('ws://35.226.112.179:8880/generator')
+
+
   constructor(props) {
     super(props);
     this.state = {
       userInput: "",
-      predictionsFromBot: "What is the future of journalism? There has never been a better time to be a journalist. However, our job is far from over. The internet has created a plethora of new companies, organizations, and news services. New institutions — especially younger ones — that have been built on the same ideals, values and principles are springing up all the time. If we're to maintain the powerful position of American journalism, we'll have to be ready to evolve along with the technology we use and our audience's demands. It's time for us to think differently. There's no longer a need for a single standard — no longer do we need a golden age. Instead, we have the opportunity to uphold the same values of truth, credibility, and independence that led"
+      dataFromServer: null
     };
   };
+
+  componentDidMount(){
+    this.ws.onopen = () => {
+      console.log('connected')
+    };
+
+    this.ws.onmessage = evt => {
+      this.setState({
+        dataFromServer: evt.data
+      })
+    };
+  };
+
+  componentDidUpdate(prevState, actualState){
+    if(prevState.dataFromServer !== actualState.dataFromServer){
+      console.log(this.state);
+    }
+  }
+
 
   handleChange = (event) => {
     this.setState({
@@ -20,28 +44,30 @@ class BotComponent extends React.Component {
     })
   }
 
+  sendDataToServer = () => {
+    let dataToSend = this.state.userInput;
+    console.log(`${dataToSend} sent to server`);
+    this.ws.send(dataToSend);
+  }
+
    renderInputQuestion = () => {
      return (
        <div className="bot_input_question_section">
+
           <input
             value={this.state.userInput}
             onChange={this.handleChange}
             placeholder={"here"}/>
-            <button>send here</button>
+
+            <button onClick={this.sendDataToServer}>
+              send here
+            </button>
+
        </div>
      );
    };
 
-   renderPredictionTransformer = () => {
-     if(!this.state.predictionsFromBot){
-       return null;
-     }
-     return (
-       <div className="bot_input_prediction_section">
-          <p>{this.state.predictionsFromBot}</p>
-       </div>
-     );
-   };
+
 
    renderClosingDiv = () => {
      return (
@@ -58,7 +84,7 @@ class BotComponent extends React.Component {
       <div className="bot_component_container">
         {this.renderClosingDiv()}
         {this.renderInputQuestion()}
-        {this.renderPredictionTransformer()}
+        <BotComponentBody {...this.state} />
       </div>
     );
   }
