@@ -22,13 +22,19 @@ class BotComponentInput extends React.Component {
     };
 
     this.ws.onmessage = evt => {
+
+      let data = evt.data;
+      let userInput = this.state.userInput;
+      let cleanedData = data.split(userInput)[1];
+
       this.setState({
-        dataFromServer: evt.data
+        dataFromServer: cleanedData
       }, () => {
-        this.props.displayPrediction(evt.data)
+        this.props.displayPrediction(cleanedData)
       })
     };
   };
+
 
 
   handleChange = (event) => {
@@ -39,20 +45,29 @@ class BotComponentInput extends React.Component {
 
   sendDataToServer = () => {
     let dataToSend = this.state.userInput;
-    console.log(`${dataToSend} sent to server`);
     this.ws.send(dataToSend);
+    return this.props.togglingLoadingSection(this.state.userInput)
+  };
+
+  resetPrediction = () => {
+    this.setState({
+      userInput: ""
+    }, () => {
+      return this.props.resetPrediction;
+    })
   }
 
    renderInputQuestion = () => {
      return (
        <div>
-          <input
-            value={this.state.userInput}
-            onChange={this.handleChange}
-            placeholder={"here"}/>
-
+            <input
+              onFocus={this.resetPrediction}
+              value={this.state.userInput}
+              onChange={this.handleChange}
+              placeholder={"Ask Ford a question here ..."}
+            />
             <button onClick={this.sendDataToServer}>
-              send here
+              send
             </button>
        </div>
      );
@@ -63,7 +78,7 @@ class BotComponentInput extends React.Component {
    handleCloseChatBot = () => {
      return (
        <div>
-          <span onClick={this.props.closeChatBot}>X</span>
+          <span onClick={this.props.closeChatBot}>close the bot</span>
        </div>
      )
    }

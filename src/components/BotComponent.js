@@ -8,7 +8,8 @@ class BotComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayPrediction: null
+      displayPrediction: null,
+      sentQuestion: null
     };
   };
 
@@ -19,26 +20,44 @@ class BotComponent extends React.Component {
     })
   };
 
+  togglingLoadingSection = (sentQuestion) => {
+    this.setState({
+      sentQuestion
+    })
+  };
+
+  resetPrediction = () => {
+    this.setState({
+      displayPrediction: null
+    })
+  }
+
   renderBotPrediction = () => {
-    if(!this.state.displayPrediction){
+    if(!this.state.displayPrediction && this.state.sentQuestion){
       return (
         <div className="bot_input_prediction_section">
-          loading
+          Processing : {this.state.sentQuestion}
         </div>
       )
+    }else if(this.state.displayPrediction && this.state.sentQuestion){
+      return (
+        <div className="bot_input_prediction_section">
+          {this.state.displayPrediction}
+        </div>
+      )
+    }else{
+      return null;
     }
-    return (
-      <div className="bot_input_prediction_section">
-        {this.state.displayPrediction}
-      </div>
-    )
    };
+
 
   renderBotInputComponent = () => {
     return (
       <BotComponentInput
         closeChatBot={this.props.closeChatBot}
         displayPrediction={this.displayPrediction}
+        resetPrediction={this.resetPrediction}
+        togglingLoadingSection={this.togglingLoadingSection}
       />
     )
   }
