@@ -1,11 +1,6 @@
 @font-face {
-  font-family: 'ENV';
-  src: url('fonts/ENV.ttf'); /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'SaolText-Light';
-  src: url('fonts/SaolText-Light.otf'); /* IE9 Compat Modes */
+  font-family: 'Plantin';
+  src: url('fonts/Plantin.otf'); /* IE9 Compat Modes */
 }
 
 body{
@@ -29,7 +24,7 @@ body{
 }
 
 .typed_span{
-  font-family: ENV;
+  font-family: Plantin;
   line-height: 1.6;
   font-size: 2.6vw;
 }
@@ -103,7 +98,7 @@ body{
 }
 
 .sources_cell_container span{
-  font-family: ENV;
+  font-family: Plantin;
   font-size: 1.2vw;
 }
 
@@ -142,13 +137,13 @@ body{
 
 .metadata_typed_tweet_section div div span{
   display: block;
-  font-family: ENV;
+  font-family: Plantin;
   font-size: 1.15vw;
 }
 
 .firstMain div span{
   color: black;
-  font-family: SaolText-Light;
+  font-family: Arial narrow;
   font-weight: 100;
   font-size: 4vw;
 }
@@ -165,7 +160,7 @@ body{
 
 .info_text_container p:first-child{
   margin-bottom: 3vw;
-  font-family: ENV;
+  font-family: Plantin;
   line-height: 1.6;
   font-size: 2.6vw;
 }
@@ -175,7 +170,7 @@ body{
 }
 
 .info_text_container p:last-child{
-  font-family: ENV;
+  font-family: Plantin;
   line-height: 1.9;
   font-size: 1.5vw;
   margin-bottom: 0;
@@ -183,7 +178,7 @@ body{
 
 .source_container p{
   margin-bottom: 3vw;
-  font-family: ENV;
+  font-family: Plantin;
   line-height: 1.6;
   font-size: 2.6vw;
   margin-bottom: 3vw;
