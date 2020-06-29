@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import SourcesComponent from "./SourcesComponent.js"
-import App from "../App.css";
+import App from "../../App.css";
 var parse = require('html-react-parser');
 
 

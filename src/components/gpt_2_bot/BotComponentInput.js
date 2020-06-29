@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactInterval from 'react-interval';
 import { HashLink as Link } from 'react-router-hash-link';
-import App from "../App.css";
+import config from "../../config.js"
+import App from "../../App.css";
 
 
 class BotComponentInput extends React.Component {
 
-  ws = new WebSocket('ws://35.226.112.179:8880/generator')
+    ws = new WebSocket(`ws://${config.gpt2Endpoint}`)
 
   constructor(props) {
     super(props);

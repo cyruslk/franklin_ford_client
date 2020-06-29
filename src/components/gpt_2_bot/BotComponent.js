@@ -1,6 +1,6 @@
 import React from 'react';
 import BotComponentInput from "./BotComponentInput";
-import App from "../App.css";
+import App from "../../App.css";
 
 
 class BotComponent extends React.Component {

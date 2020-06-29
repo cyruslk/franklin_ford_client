@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import App from "../App.css";
+import App from "../../App.css";
 
 
 class MenuLink extends React.Component {

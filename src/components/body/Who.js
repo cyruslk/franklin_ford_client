@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import App from "../App.css";
+import App from "../../App.css";
 
 
 class Who extends React.Component {
