@@ -74,8 +74,6 @@ class BotComponentInput extends React.Component {
      );
    };
 
-
-
    handleCloseChatBot = () => {
      return (
        <div>
@@ -84,9 +82,7 @@ class BotComponentInput extends React.Component {
      )
    }
 
-
   render() {
-
     return (
       <div className="bot_input_question_section">
         {this.handleCloseChatBot()}
