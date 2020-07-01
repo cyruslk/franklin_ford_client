@@ -53,9 +53,8 @@ class BotComponentInput extends React.Component {
   resetPrediction = () => {
     this.setState({
       userInput: ""
-    }, () => {
-      return this.props.resetPrediction;
     })
+    return this.props.resetPrediction();
   }
 
    renderInputQuestion = () => {

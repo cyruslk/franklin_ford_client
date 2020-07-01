@@ -68,9 +68,14 @@ class BotComponent extends React.Component {
     }, (err) => {
       console.log(err);
     })
-  }
+  };
 
-
+  resetPrediction = () => {
+    this.setState({
+      displayPrediction: null,
+      sentQuestion: null
+    })
+  };
 
 
   renderBotInputComponent = () => {
