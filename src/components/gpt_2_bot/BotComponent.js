@@ -1,6 +1,7 @@
 import React from 'react';
 import emailjs from 'emailjs-com';
 import BotComponentInput from "./BotComponentInput";
+import Typist from 'react-typist';
 import config from "../../config.js"
 import App from "../../App.css";
 
@@ -14,14 +15,24 @@ class BotComponent extends React.Component {
       displayPrediction: null,
       counter: 0,
       sentQuestion: null,
-      loadingMessages: [
-        "Please wait while we transfer your request by telegraph",
-        "Connecting to the central bureau in New York by telephone",
-        "Please wait while we transfer your request by telegraph",
-        "Connecting to the central bureau in New York by telephone",
-      ]
+      randomLoadingMessage: null,
     };
   };
+
+  componentDidMount(){
+
+    let loadingMessages = [
+      "Please wait while we transfer your request by telegraph.",
+      "Connecting to the central bureau in New York by telephone.",
+    ];
+
+    var randomLoadingMessage = loadingMessages
+    [Math.floor(Math.random()*loadingMessages.length)];
+
+    this.setState({
+      randomLoadingMessage
+    })
+  }
 
   displayPrediction = (data) => {
     let displayPrediction = data;
@@ -34,21 +45,30 @@ class BotComponent extends React.Component {
   togglingLoadingSection = (sentQuestion) => {
     this.setState({
       sentQuestion
-    }, () => {
-      return this.initLoadingScreenCounter();
     })
   };
 
-  resetPrediction = () => {
-      return this.resetLoadingScreenCounter();
+
+  displayLoadingMessages = () => {
+    if(!this.state.randomLoadingMessage){
+      return null;
+    }
+    return (
+      <p>{this.state.randomLoadingMessage}</p>
+    )
   };
+
 
   renderBotPrediction = () => {
     if(!this.state.displayPrediction
       && this.state.sentQuestion){
       return (
         <div className="bot_input_prediction_section">
+        <Typist
+          avgTypingDelay={200}
+          cursor={false}>
           {this.displayLoadingMessages()}
+        </Typist>
         </div>
       )
     }else if(this.state.displayPrediction && this.state.sentQuestion){
@@ -80,37 +100,6 @@ class BotComponent extends React.Component {
      })
    };
 
-
-   displayLoadingMessages = () => {
-     return (
-       <p>{this.state.loadingMessages[this.state.counter]}</p>
-     )
-   };
-
-
-   // fixing this, very important.
-   // ref: https://dev.to/dance2die/canceling-interval-in-react-52b5
-    resetLoadingScreenCounter = () => {
-      clearInterval(this.intervalID);
-    };
-
-   initLoadingScreenCounter = () => {
-     this.intervalID = setInterval(this.updateStateCounter, 1000);
-   };
-
-    updateStateCounter = () => {
-      let valueToResetCounter = this.state.loadingMessages.length;
-      this.setState({
-        counter: this.state.counter+1
-      }, () => {
-        if(this.state.counter === valueToResetCounter){
-          this.setState({
-            counter: 0
-          })
-        }
-      })
-    }
-
     closeChatBot = () => {
      this.sendEntryViaEmail();
      return this.props.closeChatBot();
@@ -121,7 +110,6 @@ class BotComponent extends React.Component {
         <BotComponentInput
           closeChatBot={this.closeChatBot}
           displayPrediction={this.displayPrediction}
-          resetPrediction={this.resetPrediction}
           togglingLoadingSection={this.togglingLoadingSection}
         />
       )

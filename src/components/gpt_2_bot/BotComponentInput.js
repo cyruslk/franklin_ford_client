@@ -20,21 +20,19 @@ class BotComponentInput extends React.Component {
 
   componentDidMount(){
 
-    this.ws.onopen = () => {};
+    this.ws.onopen = () => {
+      this.ws.onmessage = evt => {
 
-    this.ws.onmessage = evt => {
+        let data = evt.data;
+        let userInput = this.state.userInput;
+        let cleanedData = data.split(userInput)[1];
 
-      console.log(this.ws.readyState);
-
-      let data = evt.data;
-      let userInput = this.state.userInput;
-      let cleanedData = data.split(userInput)[1];
-
-      this.setState({
-        dataFromServer: cleanedData
-      }, () => {
-        this.props.displayPrediction(cleanedData)
-      })
+        this.setState({
+          dataFromServer: cleanedData
+        }, () => {
+          this.props.displayPrediction(cleanedData)
+        })
+      };
     };
   };
 
@@ -46,8 +44,8 @@ class BotComponentInput extends React.Component {
     this.ws.close();
   }
 
-  componentWillUnmount(){
-    this.ws.close();
+    componentWillUnmount(){
+    this.closeWsConnection();
   }
 
   handleChange = (event) => {
@@ -67,7 +65,6 @@ class BotComponentInput extends React.Component {
     this.setState({
       userInput: ""
     })
-    return this.props.resetPrediction();
   }
 
    renderInputQuestion = () => {
