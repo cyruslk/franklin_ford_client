@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Tweet } from 'react-twitter-widgets'
-import App from "../App.css";
+import App from "../../App.css";
 
 class SourcesComponentBody extends Component {
 

@@ -14,15 +14,15 @@ import {
 
 
 import App from "./App.css";
-import About from "./components//About.js";
-import BotComponent from "./components/BotComponent.js";
-import News from "./components//News.js";
-import FirstFold from "./components//FirstFold.js";
-import FirstImageFold from "./components/FirstImageFold.js";
-import SourcesComponent from "./components/SourcesComponent.js"
-import Sources from "./components/Sources.js";
-import Who from "./components/Who.js";
-import MenuLink from "./components/MenuLink.js";
+import About from "./components/body/About.js";
+import BotComponent from "./components/gpt_2_bot/BotComponent.js";
+import News from "./components/body/News.js";
+import FirstFold from "./components/first_fold/FirstFold.js";
+import FirstImageFold from "./components/body/FirstImageFold.js";
+import SourcesComponent from "./components/body_source/SourcesComponent.js"
+import Sources from "./components/body_source/Sources.js";
+import Who from "./components/body/Who.js";
+import MenuLink from "./components/body/MenuLink.js";
 
 var parse = require('html-react-parser');
 var scrollToElement = require('scroll-to-element');

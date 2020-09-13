@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import App from "../App.css";
+import App from "../../App.css";
 
 
 class FirstFoldMetadataContainer extends React.Component {

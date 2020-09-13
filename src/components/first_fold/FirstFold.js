@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FirstFoldTweetsContainer from "./FirstFoldTweetsContainer.js";
 import FirstFoldMetadataContainer from "./FirstFoldMetadataContainer.js"
-import App from "../App.css";
+import App from "../../App.css";
 
 
 class FirstFold extends React.Component {

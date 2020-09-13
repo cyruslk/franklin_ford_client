@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SourcesComponentBody from "./SourcesComponentBody.js"
-import App from "../App.css";
+import App from "../../App.css";
 
 class SourcesConponent extends Component {
 
@@ -51,7 +51,7 @@ class SourcesConponent extends Component {
        }if(ele === ","){
          return;
        }if(ele === "'"){
-         return; 
+         return;
        }else{
          return ele;
        }

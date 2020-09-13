@@ -1,6 +1,8 @@
 import React from 'react';
+import emailjs from 'emailjs-com';
 import BotComponentInput from "./BotComponentInput";
-import App from "../App.css";
+import config from "../../config.js"
+import App from "../../App.css";
 
 
 class BotComponent extends React.Component {
@@ -60,6 +62,25 @@ class BotComponent extends React.Component {
     }
    };
 
+
+   sendEntryViaEmail = () => {
+     if(!this.state.displayPrediction || !this.state.sentQuestion){
+         return;
+     }
+
+     var service_id = config.emailJs_service_id;
+     var template_id = config.emailJs_template_id;
+     var user_id = config.emailJs_user_id;
+
+     emailjs.send(service_id, template_id, this.state, user_id)
+     .then((response) => {
+       console.log("email sent");
+     }, (err) => {
+       console.log(err);
+     })
+   };
+
+
    displayLoadingMessages = () => {
      return (
        <p>{this.state.loadingMessages[this.state.counter]}</p>
@@ -90,10 +111,15 @@ class BotComponent extends React.Component {
       })
     }
 
+    closeChatBot = () => {
+     this.sendEntryViaEmail();
+     return this.props.closeChatBot();
+    };
+
     renderBotInputComponent = () => {
       return (
         <BotComponentInput
-          closeChatBot={this.props.closeChatBot}
+          closeChatBot={this.closeChatBot}
           displayPrediction={this.displayPrediction}
           resetPrediction={this.resetPrediction}
           togglingLoadingSection={this.togglingLoadingSection}
