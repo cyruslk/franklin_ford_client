@@ -12,17 +12,17 @@ class BotComponentInput extends React.Component {
     super(props);
     this.state = {
       userInput: "",
-      dataFromServer: null
+      dataFromServer: null,
+      openWsConnection: true
     };
   };
 
   componentDidMount(){
-    this.ws.onopen = () => {
-      console.log('connected')
-    };
+
+    this.ws.onopen = () => {};
 
     this.ws.onmessage = evt => {
-
+      console.log(this.ws.readyState);
       let data = evt.data;
       let userInput = this.state.userInput;
       let cleanedData = data.split(userInput)[1];
@@ -35,7 +35,17 @@ class BotComponentInput extends React.Component {
     };
   };
 
+  openWsConnection = () => {
+    this.ws.onopen();
+  }
 
+  closeWsConnection = () => {
+    this.ws.close();
+  }
+
+  componentWillUnmount(){
+    this.ws.close();
+  }
 
   handleChange = (event) => {
     this.setState({
@@ -49,19 +59,19 @@ class BotComponentInput extends React.Component {
     return this.props.togglingLoadingSection(this.state.userInput)
   };
 
+
   resetPrediction = () => {
     this.setState({
       userInput: ""
-    }, () => {
-      return this.props.resetPrediction;
     })
+    return this.props.resetPrediction();
   }
 
    renderInputQuestion = () => {
      return (
        <div>
             <input
-              onFocus={this.resetPrediction}
+              onClick={this.resetPrediction}
               value={this.state.userInput}
               onChange={this.handleChange}
               placeholder={"Ask Ford a question here ..."}

@@ -489,7 +489,7 @@ renderWho = () => {
 renderBotIcon = () => {
   return (
     <div className="bot_icon">
-      <span onClick={this.triggerTheBot}>?</span>
+      <span onClick={this.triggerTheBot}>Talk to Franklin Ford</span>
     </div>
   )
 };
