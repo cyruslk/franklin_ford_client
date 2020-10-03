@@ -41,7 +41,7 @@ class Home extends React.Component {
       sectionsData: menu_links,
       mockDataTweets: _.shuffle(mock_data_tweets),
       mockDataImages: _.shuffle(mock_data_fold_imgs),
-      triggerViewPortData: null,
+      triggerViewPortData: "what is this?",
       dbContent: null,
       tweetSamples: null,
       spreadsheetData: null,
@@ -172,7 +172,6 @@ class Home extends React.Component {
         window.location.hash = window.decodeURIComponent(window.location.hash);
         console.log(window.location.hash);
         document.querySelector(`${window.location.hash}`).scrollIntoView();
-        document.querySelector(`${window.location.hash}_body`).style.display = "block";
       }, 2000);
     }else{
       return;
@@ -488,8 +487,10 @@ renderWho = () => {
 
 renderBotIcon = () => {
   return (
-    <div className="bot_icon">
-      <span onClick={this.triggerTheBot}>Talk to Franklin Ford</span>
+    <div
+     onClick={this.triggerTheBot}
+     className="bot_icon bot_icon_left">
+      <span>Talk to Franklin Ford</span>
     </div>
   )
 };

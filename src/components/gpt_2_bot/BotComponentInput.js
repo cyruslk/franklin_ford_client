@@ -46,7 +46,7 @@ class BotComponentInput extends React.Component {
 
     componentWillUnmount(){
     this.closeWsConnection();
-  }
+    }
 
   handleChange = (event) => {
     this.setState({
@@ -69,15 +69,15 @@ class BotComponentInput extends React.Component {
 
    renderInputQuestion = () => {
      return (
-       <div>
+       <div className="bot_input_outer">
             <input
               onClick={this.resetPrediction}
               value={this.state.userInput}
               onChange={this.handleChange}
-              placeholder={"Ask Ford a question here ..."}
+              placeholder={"What is your inquiry?"}
             />
             <button onClick={this.sendDataToServer}>
-              send
+              &rarr;
             </button>
        </div>
      );
@@ -85,8 +85,12 @@ class BotComponentInput extends React.Component {
 
    handleCloseChatBot = () => {
      return (
-       <div>
-          <span onClick={this.props.closeChatBot}>close the bot</span>
+       <div
+       className="close_the_bot">
+          <span onClick={this.props.closeChatBot}>
+              Close the bot
+          </span>
+          <span>How does it works?</span>
        </div>
      )
    }

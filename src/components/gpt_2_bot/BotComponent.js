@@ -13,7 +13,6 @@ class BotComponent extends React.Component {
     super(props);
     this.state = {
       displayPrediction: null,
-      counter: 0,
       sentQuestion: null,
       randomLoadingMessage: null,
     };
@@ -116,7 +115,6 @@ class BotComponent extends React.Component {
     };
 
   render(){
-    console.log(this.state);
     return(
       <div className="bot_component_container">
         {this.renderBotInputComponent()}

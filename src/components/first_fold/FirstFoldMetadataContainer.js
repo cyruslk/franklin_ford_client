@@ -65,12 +65,10 @@ class FirstFoldMetadataContainer extends React.Component {
     let formattedContent = () => {
       return (
         <div className="metadata_first_fold">
-            <span>&#123;</span>
             <span>Author_name: {sourceMetadata.Author_name},</span>
             <span>PDF_name: {sourceMetadata.PDF_name},</span>
             <span>Tweet_created_at: {twitterMetadata.Tweet_created_at},</span>
             <span>Tweet_id_string: {twitterMetadata.Tweet_id_string}</span>
-            <span>&#123;</span>
         </div>
       )
     }
