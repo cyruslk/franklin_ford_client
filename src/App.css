@@ -74,7 +74,7 @@ p{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 4vw;
+  margin-top: 4vw;
   border-bottom: 1px solid;
   width: 50vw;
   padding-bottom: 4vw;
@@ -1146,10 +1146,11 @@ sup {
   border-radius: 40px;
   padding: 14px;
   text-align: center;
-  bottom: 3.5vw;
-  right: 3vw;
+  bottom: 4vw;
+  right: 2vw;
   padding-left: 0;
   padding-right: 0;
+  animation: bot_animation 3s infinite;
 }
 
 .bot_icon span{
@@ -1202,4 +1203,38 @@ sup {
 @keyframes blink-caret {
   from, to { border-color: transparent }
   50% { border-color: orange; }
+}
+
+@keyframes bot_animation {
+  0%, 11.1%, 100% {
+    transform: none;
+  }
+  22.2% {
+      /* transform: skewX(-12.5deg) skewY(-12.5deg); */
+      transform: skew(-4deg, -4deg);
+  }
+  33.3% {
+      /* transform: skewX(6.25deg) skewY(6.25deg); */
+      transform: skew(2deg, 2deg);
+  }
+  44.4% {
+      /* transform: skewX(-3.125deg) skewY(-3.125deg); */
+      transform: skew(-1deg, -1deg);
+  }
+  55.5% {
+      /* transform: skewX(1.5625deg) skewY(1.5625deg); */
+      transform: skew(0.5deg, 0.5deg);
+  }
+  66.6% {
+      /* transform: skewX(-.78125deg) skewY(-.78125deg); */
+      transform: skew(-0.25deg, -0.25deg);
+  }
+  77.7% {
+      /* transform: skewX(.390625deg) skewY(.390625deg); */
+      transform: skew(0.125deg, 0.125deg);
+  }
+  88.8% {
+      /* transform: skewX(-.1953125deg) skewY(-.1953125deg); */
+      transform: skew(-0.0625deg, -0.0625deg);
+  }
 }

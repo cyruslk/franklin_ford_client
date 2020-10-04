@@ -19,6 +19,7 @@ class BotComponentInput extends React.Component {
   };
 
   componentDidMount(){
+    document.addEventListener("keydown", this.handleKeyDown);
 
     this.ws.onopen = () => {
       this.ws.onmessage = evt => {
@@ -45,13 +46,22 @@ class BotComponentInput extends React.Component {
   }
 
     componentWillUnmount(){
-    this.closeWsConnection();
+      document.removeEventListener("keydown", this.handleKeyDown);
+      this.closeWsConnection();
     }
 
   handleChange = (event) => {
     this.setState({
       userInput: event.target.value
     })
+  };
+
+  handleKeyDown = (event) => {
+    if(this.state.userInput.length === 0
+    || event.keyCode !== 13){
+      return null;
+    }
+    return this.sendDataToServer();
   }
 
   sendDataToServer = () => {
@@ -90,9 +100,15 @@ class BotComponentInput extends React.Component {
           <span onClick={this.props.closeChatBot}>
               Close the bot
           </span>
-          <span>How does it works?</span>
+          <span onClick={this.scrollToSection}>
+            How does it works?
+          </span>
        </div>
      )
+   };
+
+   scrollToSection = () => {
+     document.getElementById("anatomy-of-a-bot").scrollIntoView({behavior: "smooth"})
    }
 
   render() {
