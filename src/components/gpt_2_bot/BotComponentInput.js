@@ -101,7 +101,7 @@ class BotComponentInput extends React.Component {
               Close the bot
           </span>
           <span onClick={this.scrollToSection}>
-            How does it works?
+            How does it work?
           </span>
        </div>
      )

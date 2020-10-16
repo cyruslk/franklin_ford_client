@@ -81,7 +81,7 @@ class SourcesConponent extends Component {
     }else{
       return (
         {
-          borderBottom: "1px dotted #F5F5F5"
+          borderBottom: "1px solid #F5F5F5"
         }
       )
     }

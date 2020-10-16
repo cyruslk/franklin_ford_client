@@ -94,10 +94,10 @@ p{
 }
 
 .about_container a{
-  border-bottom: 1px dotted;
+  border-bottom: 1px solid;
 }
 .news_container a{
-  border-bottom: 1px dotted;
+  border-bottom: 1px solid;
 }
 
 
@@ -107,13 +107,57 @@ p{
 }
 
 .bot_input_prediction_section{
-  padding: 1vw;
-  padding-top: 4vw;
   position: relative;
+  top: 3vw;
+  margin-left: 1vw;
+  right: 0;
 }
 
 .bot_input_prediction_section p{
   font-family: Plantin;
+  background-color: #F5F5F5;
+  border: 1px solid black;
+  padding: 12px 18px;
+  width: 80%;
+  border-radius: 14px 14px 14px 0px;
+}
+
+.loading_bubbles{
+  background-color: white;
+  background-color: #F5F5F5;
+  border: 1px solid black;
+  padding: 12px 18px;
+  width: fit-content;
+  border-radius: 14px 14px 14px 0px;
+}
+
+.dot{
+  display:inline-block;
+	width:4px;
+	height:4px;
+	border-radius:50%;
+	margin-right:3px;
+	background:#303131;
+	animation: wave 1.3s linear infinite;
+}
+
+.dot:nth-child(2) {
+	animation-delay: -1.1s;
+}
+
+.dot:nth-child(3) {
+	animation-delay: -0.9s;
+}
+
+
+
+.animated_bubble{
+  border-bottom-left-radius: 0;
+  animation: fadeIn ease 1s;
+}
+
+.inverted_bubble{
+  filter: invert(1);
 }
 
 textarea:focus, input:focus{
@@ -132,7 +176,7 @@ textarea,input{
 
 input::placeholder{
   color: black;
-  font-family: monospace;
+  font-family: Plantin;
   font-size: 1.1vw;
 }
 
@@ -174,7 +218,7 @@ input::placeholder{
 .close_the_bot span{
   border-bottom: 0;
   color: white;
-  font-family: monospace;
+  font-family: Plantin;
   font-size: 1.1vw;
 }
 
@@ -293,15 +337,14 @@ input::placeholder{
   padding-top: 1vw;
   padding-bottom: 1vw;
   border-bottom: 1px solid;
+  border: 1px solid;
+  margin-bottom: 9px;
+  padding: 11px;
+  border-radius: 14px 14px 14px 0px;
 }
-
-.metadata_first_fold:last-child{
-  border-bottom: none;
-}
-
 
 .metadata_first_fold span{
-  font-family: monospace;
+  font-family: Plantin;
   font-size: 1.1vw;
   text-indent: 0.3vw !important;
   overflow-wrap: break-word;
@@ -336,24 +379,37 @@ input::placeholder{
 .pdf_source_component span{
   font-family: plantin;
   font-size: 1.1vw;
-  text-transform: uppercase;
+  text-transform: initial;
   color: black;
   padding: 1vw;
   border-radius: 10px;
-  border: 1px dotted black;
-  font-weight: bolder;
+  background-color: black;
+  border-radius: 14px 14px 14px 0px;
+  color: #F5F5F5;
 }
 
 .tweet_maped{
   margin-bottom: 1vw;
+  border-radius: 14px 14px 14px 0px;
+  border: 1px solid;
+  padding: 1.5vw;
+  background-color: transparent;
 }
 
-.tweet_maped span{
+.tweet_maped:nth-child(even){
+  filter: invert(1);
+  border: 1px solid white;
+}
+
+.tweet_maped:nth-child(odd){
+  background-color: black;
+}
+
+.tweet_maped span:nth-child(odd){
+  color: #F5F5F5;
   font-family: plantin;
-    font-size: 1.4vw;
-    color: black;
+  font-size: 1.4vw;
 }
-
 
 .bot_input_outer{
   position: absolute;
@@ -366,18 +422,18 @@ input::placeholder{
 }
 
 .source_container_body section h1{
-  text-transform: uppercase;
   font-family: plantin;
-  font-size: 1.5vw;
+  font-weight: 100;
+  font-size: 1.7vw;
   color: black;
   margin: 0;
   margin-bottom: 3vw;
-  border-bottom: 1px dotted;
+  border-bottom: 1px solid;
 }
 
 .source_container_body section{
   background-color: #F5F5F5;
-  border-radius: 20px;
+  border-radius: 14px 14px 0px 14px;
   padding: 4vw;
   margin-bottom: 1vw;
   max-width: 72vw;
@@ -417,13 +473,14 @@ input::placeholder{
 }
 
 .sticky_container div .first{
-  font-family: monospace;
-  text-transform: inherit;
-  border-bottom: none;
+  font-family: Plantin;
   margin-bottom: 1vw;
-  font-size: 1.4vw;
+  font-size: 1.2vw;
   text-transform: uppercase;
   cursor: pointer;
+  background-color: black;
+  color: white;
+  border: none;
 }
 
 
@@ -432,9 +489,9 @@ input::placeholder{
   right: 2vw;
   top: 2vw;
   background-color: #F5F5F5;
-  border-radius: 20px;
+  border-radius: 14px 14px 14px 0px;
   padding: 1vw;
-  border: 1px dotted;
+  border: 1px solid;
 }
 
 .source_indicator span{
@@ -449,14 +506,14 @@ input::placeholder{
   left: 2vw;
   top: 2vw;
   background-color: #F5F5F5;
-  border-radius: 20px;
+  border-radius: 14px 14px 0px 14px;
   padding: 1vw;
-  border: 1px dotted;
+  border: 1px solid;
 }
 
 .source_tweet_indicator span{
   font-weight: lighter;
-  font-family: monospace;
+  font-family: Plantin;
   font-size: 1.2vw;
 }
 
@@ -470,9 +527,15 @@ input::placeholder{
   padding-bottom: 0.3vw;
   padding-top: 0.3vw;
   font-family: Plantin;
-  border-bottom: 1px solid;
   font-size: 1.1vw;
   text-transform: uppercase;
+  border-radius: 14px 14px 14px 0px;
+  background-color: #F5F5F5;
+  padding: 11px;
+  color: black;
+  border: 1px solid;
+  margin-bottom: 9px;
+  width: fit-content;
 }
 
 
@@ -995,7 +1058,7 @@ sup {
 }
 
 .visualisation_menu span{
-  font-family: monospace;
+  font-family: Plantin;
   text-transform: uppercase;
   font-size: 1vw;
   border: 1px dotted;
@@ -1146,20 +1209,22 @@ sup {
   border-radius: 40px;
   padding: 14px;
   text-align: center;
-  bottom: 4vw;
+  bottom: 2vw;
   right: 2vw;
   padding-left: 0;
   padding-right: 0;
-  animation: bot_animation 3s infinite;
+  /* animation: bot_animation 5s infinite; */
+  border-radius: 14px 14px 0px 14px;
+  border: 1px solid black;
 }
 
 .bot_icon span{
-  font-family: monospace;
+  font-family: Plantin;
   color: #F5F5F5;
   text-transform: uppercase;
 }
 
-.bot_icon_left:before {
+/* .bot_icon_left:before {
   content: "";
   width: 0px;
   height: 0px;
@@ -1170,7 +1235,7 @@ sup {
   border-bottom: 20px solid transparent;
   left: 32px;
   bottom: -24px;
-}
+} */
 
 
 .who_container section h1,
@@ -1237,4 +1302,24 @@ sup {
       /* transform: skewX(-.1953125deg) skewY(-.1953125deg); */
       transform: skew(-0.0625deg, -0.0625deg);
   }
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@keyframes wave {
+	0%, 60%, 100% {
+		transform: initial;
+	}
+
+	30% {
+		transform: translateY(-5px);
+	}
 }

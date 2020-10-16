@@ -62,22 +62,27 @@ class BotComponent extends React.Component {
     if(!this.state.displayPrediction
       && this.state.sentQuestion){
       return (
-        <div className="bot_input_prediction_section">
-        <Typist
-          avgTypingDelay={200}
-          cursor={false}>
-          {this.displayLoadingMessages()}
-        </Typist>
-        </div>
+          <div className="bot_input_prediction_section inverted_bubble">
+            {this.displayLoadingMessages()}
+            <div className="loading_bubbles">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
       )
     }else if(this.state.displayPrediction && this.state.sentQuestion){
       return (
         <div className="bot_input_prediction_section">
-          {this.state.displayPrediction}
+          <p>{this.state.displayPrediction}</p>
         </div>
       )
     }else{
-      return null;
+      return (
+        <div className="bot_input_prediction_section animated_bubble">
+          <p>Buy your facts at Fords. Corporations investigated. Trade conditions reported</p>
+        </div>
+      )
     }
    };
 
