@@ -22,17 +22,6 @@ const mock_data_tweets = [
   	}
   },
   {
-  	randomString: "To suppose that the fund increases at compound interest is entirely erroneous.",
-  	twitterData: {
-  		Tweet_created_at: "2019-09-29 16:52:22",
-  		Tweet_id_string: "1178351823628984320"
-  	},
-  	sourceData: {
-  		Author_name: "William F. Ford",
-  		PDF_name: "1879__Ford_Delusive_Methods_of_Municipal_Financering.pdf"
-  	}
-  },
-  {
   	randomString: "Failing to register there, the confusion must continue",
   	twitterData: {
   		Tweet_created_at: "M2019-08-10 17:27:21",

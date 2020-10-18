@@ -14,6 +14,7 @@ class BotComponentInput extends React.Component {
     this.state = {
       userInput: "",
       dataFromServer: null,
+      userInputLength: 0,
       openWsConnection: true
     };
   };
@@ -39,20 +40,21 @@ class BotComponentInput extends React.Component {
 
   openWsConnection = () => {
     this.ws.onopen();
-  }
+  };
 
   closeWsConnection = () => {
     this.ws.close();
-  }
+  };
 
-    componentWillUnmount(){
-      document.removeEventListener("keydown", this.handleKeyDown);
-      this.closeWsConnection();
-    }
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.handleKeyDown);
+    this.closeWsConnection();
+  };
 
   handleChange = (event) => {
     this.setState({
-      userInput: event.target.value
+      userInput: event.target.value,
+      userInputLength: event.target.value.length
     })
   };
 
@@ -62,9 +64,14 @@ class BotComponentInput extends React.Component {
       return null;
     }
     return this.sendDataToServer();
-  }
+  };
 
   sendDataToServer = () => {
+
+    if(this.state.userInputLength < 7){
+        return this.props.handleErrorMessage();
+    }
+
     let dataToSend = this.state.userInput;
     this.ws.send(dataToSend);
     return this.props.togglingLoadingSection(this.state.userInput)
@@ -73,9 +80,10 @@ class BotComponentInput extends React.Component {
 
   resetPrediction = () => {
     this.setState({
-      userInput: ""
+      userInput: "",
+      userInputLength: 0
     })
-  }
+  };
 
    renderInputQuestion = () => {
      return (
@@ -109,7 +117,8 @@ class BotComponentInput extends React.Component {
 
    scrollToSection = () => {
      document.getElementById("anatomy-of-a-bot").scrollIntoView({behavior: "smooth"})
-   }
+   };
+
 
   render() {
     return (

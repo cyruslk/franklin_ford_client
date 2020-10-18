@@ -338,10 +338,12 @@ input::placeholder{
   padding-bottom: 1vw;
   border-bottom: 1px solid;
   border: 1px solid;
-  margin-bottom: 9px;
+  margin-top: 9px;
   padding: 11px;
   border-radius: 14px 14px 14px 0px;
 }
+
+
 
 .metadata_first_fold span{
   font-family: Plantin;
@@ -1020,6 +1022,8 @@ sup {
   color: black;
 }
 
+
+
 .email_form input::placeholder,
 .email_form textarea::placeholder{
   color: black;
@@ -1105,6 +1109,10 @@ sup {
   width: 10vw;
 }
 
+
+.bot_message_handler{
+  display: none;
+}
 
 .who_container,
 .contact_container,

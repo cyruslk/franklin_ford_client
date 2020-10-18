@@ -87,11 +87,21 @@ class BotComponent extends React.Component {
    };
 
 
+
+   // change later;
+   handleErrorMessage = () => {
+     return (
+       <div className="bot_message_handler">
+          <p>bfgbbfbf</p>
+       </div>
+     )
+   }
+
+
    sendEntryViaEmail = () => {
      if(!this.state.displayPrediction || !this.state.sentQuestion){
          return;
      }
-
      var service_id = config.emailJs_service_id;
      var template_id = config.emailJs_template_id;
      var user_id = config.emailJs_user_id;
@@ -112,6 +122,7 @@ class BotComponent extends React.Component {
     renderBotInputComponent = () => {
       return (
         <BotComponentInput
+          handleErrorMessage={this.handleErrorMessage}
           closeChatBot={this.closeChatBot}
           displayPrediction={this.displayPrediction}
           togglingLoadingSection={this.togglingLoadingSection}
@@ -122,6 +133,7 @@ class BotComponent extends React.Component {
   render(){
     return(
       <div className="bot_component_container">
+        {this.handleErrorMessage()}
         {this.renderBotInputComponent()}
         {this.renderBotPrediction()}
       </div>

@@ -27,6 +27,7 @@
     "react-timer-mixin": "^0.13.4",
     "react-twitter-widgets": "^1.7.1",
     "react-typed": "^1.2.0",
+    "react-typist": "^2.0.5",
     "react-typist-n10": "^2.0.4",
     "react-visibility-sensor": "^5.1.1",
     "scroll-to-element": "^2.0.3",
