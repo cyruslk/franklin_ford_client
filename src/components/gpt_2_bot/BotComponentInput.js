@@ -15,7 +15,8 @@ class BotComponentInput extends React.Component {
       userInput: "",
       dataFromServer: null,
       userInputLength: 0,
-      openWsConnection: true
+      openWsConnection: true,
+      renderOnErrorMessage: false
     };
   };
 
@@ -67,16 +68,27 @@ class BotComponentInput extends React.Component {
   };
 
   sendDataToServer = () => {
-
     if(this.state.userInputLength < 7){
-        return this.props.handleErrorMessage();
+        return this.handleErrorMessage();
     }
-
     let dataToSend = this.state.userInput;
     this.ws.send(dataToSend);
-    return this.props.togglingLoadingSection(this.state.userInput)
+    this.props.togglingLoadingSection(this.state.userInput);
+    return this.resetPrediction();
   };
 
+  handleErrorMessage = () => {
+    this.setState({
+      renderOnErrorMessage: true
+    }, () => {
+      setTimeout(() => {
+         this.setState({
+           renderOnErrorMessage: false
+         });
+       }, 2500);
+    })
+    return this.resetPrediction();
+  }
 
   resetPrediction = () => {
     this.setState({
@@ -116,13 +128,25 @@ class BotComponentInput extends React.Component {
    };
 
    scrollToSection = () => {
-     document.getElementById("anatomy-of-a-bot").scrollIntoView({behavior: "smooth"})
+     document.getElementById("anatomy-of-a-bot")
+     .scrollIntoView({behavior: "smooth"})
    };
 
+
+   renderOnErrorMessage = () => {
+    if(this.state.renderOnErrorMessage){
+      return (
+        <div className="bot_error_message">
+          <span>Your input must be longer!</span>
+        </div>
+      )
+    }
+   }
 
   render() {
     return (
       <div className="bot_input_question_section">
+        {this.renderOnErrorMessage()}
         {this.handleCloseChatBot()}
         {this.renderInputQuestion()}
       </div>

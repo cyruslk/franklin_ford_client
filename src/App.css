@@ -396,21 +396,30 @@ input::placeholder{
   border: 1px solid;
   padding: 1.5vw;
   background-color: transparent;
+  border: 1px solid black;
 }
 
-.tweet_maped:nth-child(even){
-  filter: invert(1);
-  border: 1px solid white;
-}
-
-.tweet_maped:nth-child(odd){
-  background-color: black;
-}
 
 .tweet_maped span:nth-child(odd){
-  color: #F5F5F5;
+  color: black;
   font-family: plantin;
   font-size: 1.4vw;
+}
+
+.bot_error_message{
+  bottom: 6vw;
+  margin-left: 1vw;
+  left: 0;
+  position: absolute;
+}
+
+.bot_error_message span{
+  font-family: Plantin;
+  background-color: black;
+  color: #F5F5F5;
+  padding: 12px 18px;
+  width: 80%;
+  border-radius: 14px 14px 14px 0px;
 }
 
 .bot_input_outer{
@@ -764,8 +773,6 @@ sup {
   padding-bottom: 0;
   margin-bottom: 0;
 }
-
-
 
 .about_container div div:last-child .about_container_main h1{
   display: none;

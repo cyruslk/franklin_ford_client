@@ -27,12 +27,14 @@ class About extends React.Component {
       .toLowerCase()
       .split(" ").join("-")
 
+      console.log(ele);
+
       return (
         <div
           id={headlineToID}
           className="about_container_main_master">
           <div className="about_container_main">
-              <h1>{parse(ele.Headline)}</h1>
+            <h1>{parse(ele.Headline)}</h1>
             <p>{parsedText}</p>
           </div>
         </div>

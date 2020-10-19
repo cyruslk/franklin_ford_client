@@ -65,9 +65,9 @@ class BotComponent extends React.Component {
           <div className="bot_input_prediction_section inverted_bubble">
             {this.displayLoadingMessages()}
             <div className="loading_bubbles">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
             </div>
           </div>
       )
@@ -85,17 +85,6 @@ class BotComponent extends React.Component {
       )
     }
    };
-
-
-
-   // change later;
-   handleErrorMessage = () => {
-     return (
-       <div className="bot_message_handler">
-          <p>bfgbbfbf</p>
-       </div>
-     )
-   }
 
 
    sendEntryViaEmail = () => {
@@ -122,7 +111,6 @@ class BotComponent extends React.Component {
     renderBotInputComponent = () => {
       return (
         <BotComponentInput
-          handleErrorMessage={this.handleErrorMessage}
           closeChatBot={this.closeChatBot}
           displayPrediction={this.displayPrediction}
           togglingLoadingSection={this.togglingLoadingSection}
@@ -133,7 +121,6 @@ class BotComponent extends React.Component {
   render(){
     return(
       <div className="bot_component_container">
-        {this.handleErrorMessage()}
         {this.renderBotInputComponent()}
         {this.renderBotPrediction()}
       </div>
