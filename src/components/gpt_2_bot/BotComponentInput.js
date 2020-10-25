@@ -44,7 +44,7 @@ class BotComponentInput extends React.Component {
   };
 
   closeWsConnection = () => {
-    this.ws.close();
+    WebSocket.close();
   };
 
   componentWillUnmount(){
