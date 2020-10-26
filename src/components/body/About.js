@@ -27,8 +27,6 @@ class About extends React.Component {
       .toLowerCase()
       .split(" ").join("-")
 
-      console.log(ele);
-
       return (
         <div
           id={headlineToID}

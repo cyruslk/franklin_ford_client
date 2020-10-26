@@ -8,7 +8,6 @@ import App from "../../App.css";
 
 class BotComponent extends React.Component {
 
-
   constructor(props) {
     super(props);
     this.state = {
@@ -34,10 +33,25 @@ class BotComponent extends React.Component {
   }
 
   displayPrediction = (data) => {
-    let displayPrediction = data;
-    this.setState({
-      displayPrediction
-    })
+
+
+    let sentQuestion = this.state.sentQuestion;
+    let displayPrediction = data.replace(sentQuestion,"");
+
+
+    if(!this.state.displayPrediction){
+      this.setState({
+        displayPrediction
+      })
+    }else{
+      this.setState({
+        displayPrediction: null
+      }, () => {
+        this.setState({
+          displayPrediction
+        })
+      })
+    };
   };
 
 

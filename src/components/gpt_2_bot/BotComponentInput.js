@@ -7,7 +7,7 @@ import App from "../../App.css";
 
 class BotComponentInput extends React.Component {
 
-    ws = new WebSocket(`ws://${config.gpt2Endpoint}`)
+  ws = new WebSocket(`ws://${config.gpt2Endpoint}`)
 
   constructor(props) {
     super(props);
@@ -24,16 +24,18 @@ class BotComponentInput extends React.Component {
     document.addEventListener("keydown", this.handleKeyDown);
 
     this.ws.onopen = () => {
+
+
       this.ws.onmessage = evt => {
 
         let data = evt.data;
         let userInput = this.state.userInput;
-        let cleanedData = data.split(userInput)[1];
+        let cleanedUserInput = data.replace(userInput, "");
 
         this.setState({
-          dataFromServer: cleanedData
+          dataFromServer: cleanedUserInput
         }, () => {
-          this.props.displayPrediction(cleanedData)
+          this.props.displayPrediction(cleanedUserInput)
         })
       };
     };
@@ -44,7 +46,7 @@ class BotComponentInput extends React.Component {
   };
 
   closeWsConnection = () => {
-    this.ws.close();
+      this.ws.close();
   };
 
   componentWillUnmount(){
@@ -68,9 +70,11 @@ class BotComponentInput extends React.Component {
   };
 
   sendDataToServer = () => {
+
     if(this.state.userInputLength < 7){
         return this.handleErrorMessage();
     }
+
     let dataToSend = this.state.userInput;
     this.ws.send(dataToSend);
     this.props.togglingLoadingSection(this.state.userInput);
