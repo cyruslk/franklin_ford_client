@@ -7,7 +7,7 @@ import App from "../../App.css";
 
 class BotComponentInput extends React.Component {
 
-  ws = new WebSocket(`ws://${config.gpt2Endpoint}`)
+    ws = new WebSocket(`wss://${config.gpt2Endpoint}`)
 
   constructor(props) {
     super(props);
