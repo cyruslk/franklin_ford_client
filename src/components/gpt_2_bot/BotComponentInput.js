@@ -24,10 +24,7 @@ class BotComponentInput extends React.Component {
     document.addEventListener("keydown", this.handleKeyDown);
 
     this.ws.onopen = () => {
-
-
       this.ws.onmessage = evt => {
-
         let data = evt.data;
         let userInput = this.state.userInput;
         let cleanedUserInput = data.replace(userInput, "");
@@ -76,7 +73,11 @@ class BotComponentInput extends React.Component {
     }
 
     let dataToSend = this.state.userInput;
-    this.ws.send(dataToSend);
+
+    this.ws.onopen = () => {
+      this.ws.send(dataToSend);
+    };
+
     this.props.togglingLoadingSection(this.state.userInput);
     return this.resetPrediction();
   };
